@@ -95,6 +95,28 @@ void write_record(Record *record);
      * So, every time we use this marco directly, we need to call MAP_OR_FAIL before it
      */
     #define RECORDER_REAL_CALL(func) __real_##func
+#elif RECORDER_GOTCHA
+    #include <gotcha/gotcha.h>
+    /*
+     * Declare the function signatures for real functions
+     * i.e. The real function point to fwrite would be defined as __real_fwrite
+     */
+    #define RECORDER_FORWARD_DECL(name, ret, args) ret(*__real_##name) args;
+    
+    /* Point __real_func to the real funciton using dlsym() */
+    #define MAP_OR_FAIL(func)                                                   \
+        if (!(__real_##func)) {                                                 \
+            __real_ ## name = gotcha_get_wrappee(wrappee_handle_ ## name); \
+            if (!(__real_##func)) { \
+                assert(!"missing Gotcha wrappee for " #name); \
+            } \                                                                  \
+        }
+    /*
+     * Call the real funciton
+     * Before call the real function, we need to make sure its mapped by dlsym()
+     * So, every time we use this marco directly, we need to call MAP_OR_FAIL before it
+     */
+    #define RECORDER_REAL_CALL(func) __real_##func
 #else
     #define RECORDER_FORWARD_DECL(name, ret, args)
     #define MAP_OR_FAIL(func)
@@ -109,20 +131,39 @@ void write_record(Record *record);
     #ifndef DISABLE_MPIO_TRACE
         #define RECORDER_MPI_DECL(func) func
     #else
-        #define RECORDER_MPI_DECL(func) __warp_##func
+        #define RECORDER_MPI_DECL(func) __ignore_##func
     #endif
 
     #ifndef DISABLE_POSIX_TRACE
         #define RECORDER_POSIX_DECL(func) func
     #else
-        #define RECORDER_POSIX_DECL(func) __warp_##func
+        #define RECORDER_POSIX_DECL(func) __ignore_##func
     #endif
 
     #ifndef DISABLE_HDF5_TRACE
         #define RECORDER_HDF5_DECL(func) func
     #else
-        #define RECORDER_HDF5_DECL(func) __warp_##func
+        #define RECORDER_HDF5_DECL(func) __ignore_##func
     #endif
+#elif RECORDER_GOTCHA
+    #ifndef DISABLE_MPIO_TRACE
+        #define RECORDER_MPI_DECL(func) __wrap_##func
+    #else
+        #define RECORDER_MPI_DECL(func) __ignore_##func
+    #endif
+
+    #ifndef DISABLE_POSIX_TRACE
+        #define RECORDER_POSIX_DECL(func) __wrap_##func
+    #else
+        #define RECORDER_POSIX_DECL(func) __ignore_##func
+    #endif
+
+    #ifndef DISABLE_HDF5_TRACE
+        #define RECORDER_HDF5_DECL(func) __wrap_##func
+    #else
+        #define RECORDER_HDF5_DECL(func) __ignore_##func
+    #endif
+
 #else
     #define RECORDER_MPI_DECL(func) func
     #define RECORDER_POSIX_DECL(func) func
