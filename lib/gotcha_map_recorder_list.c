@@ -515,4 +515,29 @@ struct gotcha_binding_t recorder_wrappers[] = {
 
 #define GOTCHA_NFUNCS (sizeof(recorder_wrappers) / sizeof(gotcha_binding_t))
 
+int setup_gotcha_wrappers(void)
+{
+    /* insert our I/O wrappers using gotcha */
+    enum gotcha_error_t result;
+    result = gotcha_wrap(recorder_wrappers, GOTCHA_NFUNCS, "recorder");
+    if (result != GOTCHA_SUCCESS) {
+        LOGERR("gotcha_wrap() returned %d", (int) result);
+        if (result == GOTCHA_FUNCTION_NOT_FOUND) {
+            /* one or more functions were not found */
+            void* fn;
+            gotcha_wrappee_handle_t* hdlptr;
+            for (int i = 0; i < GOTCHA_NFUNCS; i++) {
+                hdlptr = recorder_wrappers[i].function_handle;
+                fn = gotcha_get_wrappee(*hdlptr);
+                if (NULL == fn) {
+                    LOGWARN("Gotcha failed to wrap function '%s'",
+                            recorder_wrappers[i].name);
+                }
+            }
+        } else {
+            return -1;
+        }
+    }
+    return 0;
+}
 //#endif
