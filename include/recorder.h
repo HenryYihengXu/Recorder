@@ -274,11 +274,13 @@ RECORDER_FORWARD_DECL(utime, int, (const char *filename, const struct utimbuf *b
 RECORDER_FORWARD_DECL(opendir, DIR*, (const char *name));
 RECORDER_FORWARD_DECL(readdir, struct dirent*, (DIR *dir));
 RECORDER_FORWARD_DECL(closedir, int, (DIR *dir));
-RECORDER_FORWARD_DECL(rewinddir, void, (DIR *dir)); // no wrapper definition
+// rewinddir no wrapper definition
+RECORDER_FORWARD_DECL(rewinddir, void, (DIR *dir)); 
 RECORDER_FORWARD_DECL(mknod, int, (const char *path, mode_t mode, dev_t dev));
 RECORDER_FORWARD_DECL(mknodat, int, (int fd, const char *path, mode_t mode, dev_t dev));
 // Advanced File Operations
-RECORDER_FORWARD_DECL(fcntl, int, (int fd, int cmd, ...)); // depends on DISABLE_FCNTL_TRACE, could be no wrapper definition
+// fcntl depends on DISABLE_FCNTL_TRACE, could be no wrapper definition
+RECORDER_FORWARD_DECL(fcntl, int, (int fd, int cmd, ...)); 
 RECORDER_FORWARD_DECL(dup, int, (int oldfd));
 RECORDER_FORWARD_DECL(dup2, int, (int oldfd, int newfd));
 RECORDER_FORWARD_DECL(pipe, int, (int pipefd[2]));
@@ -352,10 +354,13 @@ RECORDER_FORWARD_DECL(PMPI_File_write_ordered_begin, int, (MPI_File fh, CONST vo
 RECORDER_FORWARD_DECL(PMPI_File_iwrite_at, int, (MPI_File fh, MPI_Offset offset, CONST void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
 RECORDER_FORWARD_DECL(PMPI_File_iwrite, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
 RECORDER_FORWARD_DECL(PMPI_File_iwrite_shared, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
-RECORDER_FORWARD_DECL(PMPI_Finalize, int, ()); // wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+// PMPI_Finalize wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+RECORDER_FORWARD_DECL(PMPI_Finalize, int, ()); 
 RECORDER_FORWARD_DECL(PMPI_Finalized, int, (int *flag));
-RECORDER_FORWARD_DECL(PMPI_Init, int, (int *argc, char ***argv)); // wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
-RECORDER_FORWARD_DECL(PMPI_Init_thread, int, (int *argc, char ***argv, int required, int *provided));  // wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+// PMPI_Init wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+RECORDER_FORWARD_DECL(PMPI_Init, int, (int *argc, char ***argv)); 
+// PMPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+RECORDER_FORWARD_DECL(PMPI_Init_thread, int, (int *argc, char ***argv, int required, int *provided));
 // Added 10 new MPI functinos on 2019/01/07
 RECORDER_FORWARD_DECL(PMPI_Cart_rank, int, (MPI_Comm comm, CONST int coords[], int *rank));
 RECORDER_FORWARD_DECL(PMPI_Cart_create, int, (MPI_Comm comm_old, int ndims, CONST int dims[], CONST int periods[], int reorder, MPI_Comm *comm_cart));
