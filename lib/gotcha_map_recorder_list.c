@@ -1,6 +1,9 @@
-//#ifdef RECORDER_GOTCHA
+#ifdef RECORDER_GOTCHA
 #include <gotcha/gotcha.h>
 #include "recorder.h"
+#include "recorder-posix.h"
+#include "recorder-mpi.h"
+#include "recorder-hdf5.h"
 
 /* define gotcha-specific state to use with our wrapper */
 #define RECORDER_WRAPPEE_HANDLE_DECL(func) \
@@ -271,13 +274,13 @@ RECORDER_WRAPPEE_HANDLE_DECL(H5Lexists);
 RECORDER_WRAPPEE_HANDLE_DECL(H5Lget_val);
 RECORDER_WRAPPEE_HANDLE_DECL(H5Literate);
 /* H5Literate1 H5Literate2 don't have wrapper definition */
-RECORDER_WRAPPEE_HANDLE_DECL(H5Literate1);
-RECORDER_WRAPPEE_HANDLE_DECL(H5Literate2);
+// RECORDER_WRAPPEE_HANDLE_DECL(H5Literate1);
+// RECORDER_WRAPPEE_HANDLE_DECL(H5Literate2);
 /* Object Interface */
 RECORDER_WRAPPEE_HANDLE_DECL(H5Oclose);
 /* H5Oget_info H5Oget_info_by_name don't have wrapper definition because of version inconsistency */
-RECORDER_WRAPPEE_HANDLE_DECL(H5Oget_info);
-RECORDER_WRAPPEE_HANDLE_DECL(H5Oget_info_by_name);
+// RECORDER_WRAPPEE_HANDLE_DECL(H5Oget_info);
+// RECORDER_WRAPPEE_HANDLE_DECL(H5Oget_info_by_name);
 RECORDER_WRAPPEE_HANDLE_DECL(H5Oopen);
 /* Collective Metadata */
 RECORDER_WRAPPEE_HANDLE_DECL(H5Pset_coll_metadata_write);
@@ -517,11 +520,13 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "H5Lexists", RECORDER_HDF5_DECL(H5Lexists), &RECORDER_WRAPPEE_HANDLE(H5Lexists) },
     { "H5Lget_val", RECORDER_HDF5_DECL(H5Lget_val), &RECORDER_WRAPPEE_HANDLE(H5Lget_val) },
     { "H5Literate", RECORDER_HDF5_DECL(H5Literate), &RECORDER_WRAPPEE_HANDLE(H5Literate) },
-    { "H5Literate1", RECORDER_HDF5_DECL(H5Literate1), &RECORDER_WRAPPEE_HANDLE(H5Literate1) },
-    { "H5Literate2", RECORDER_HDF5_DECL(H5Literate2), &RECORDER_WRAPPEE_HANDLE(H5Literate2) },
+    /* H5Literate1 H5Literate2 don't have wrapper definition */
+    // { "H5Literate1", RECORDER_HDF5_DECL(H5Literate1), &RECORDER_WRAPPEE_HANDLE(H5Literate1) },
+    // { "H5Literate2", RECORDER_HDF5_DECL(H5Literate2), &RECORDER_WRAPPEE_HANDLE(H5Literate2) },
     { "H5Oclose", RECORDER_HDF5_DECL(H5Oclose), &RECORDER_WRAPPEE_HANDLE(H5Oclose) },
-    { "H5Oget_info", RECORDER_HDF5_DECL(H5Oget_info), &RECORDER_WRAPPEE_HANDLE(H5Oget_info) },
-    { "H5Oget_info_by_name", RECORDER_HDF5_DECL(H5Oget_info_by_name), &RECORDER_WRAPPEE_HANDLE(H5Oget_info_by_name) },
+    /* H5Oget_info H5Oget_info_by_name don't have wrapper definition because of version inconsistency */
+    // { "H5Oget_info", RECORDER_HDF5_DECL(H5Oget_info), &RECORDER_WRAPPEE_HANDLE(H5Oget_info) },
+    // { "H5Oget_info_by_name", RECORDER_HDF5_DECL(H5Oget_info_by_name), &RECORDER_WRAPPEE_HANDLE(H5Oget_info_by_name) },
     { "H5Oopen", RECORDER_HDF5_DECL(H5Oopen), &RECORDER_WRAPPEE_HANDLE(H5Oopen) },
     { "H5Pset_coll_metadata_write", RECORDER_HDF5_DECL(H5Pset_coll_metadata_write), &RECORDER_WRAPPEE_HANDLE(H5Pset_coll_metadata_write) },
     { "H5Pget_coll_metadata_write", RECORDER_HDF5_DECL(H5Pget_coll_metadata_write), &RECORDER_WRAPPEE_HANDLE(H5Pget_coll_metadata_write) },
@@ -557,4 +562,4 @@ int setup_gotcha_wrappers(void)
     }
     return 0;
 }
-//#endif
+#endif /* RECORDER_GOTCHA */

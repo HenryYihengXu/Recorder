@@ -75,6 +75,9 @@ herr_t RECORDER_HDF5_DECL(H5Pset_meta_block_size)(hid_t fapl_id, hsize_t size);
 htri_t RECORDER_HDF5_DECL(H5Lexists)(hid_t loc_id, const char *name, hid_t lapl_id);
 herr_t RECORDER_HDF5_DECL(H5Lget_val)(hid_t link_loc_id, const char *link_name, void *linkval_buff, size_t size, hid_t lapl_id);
 herr_t RECORDER_HDF5_DECL(H5Literate)(hid_t group_id, H5_index_t index_type, H5_iter_order_t order, hsize_t *idx, H5L_iterate_t op, void *op_data);
+/* H5Literate1 H5Literate2 don't have wrapper definition */
+// herr_t RECORDER_HDF5_DECL(H5Literate1)(hid_t group_id, H5_index_t index_type, H5_iter_order_t order, hsize_t *idx, H5L_iterate_t op, void *op_data);
+// herr_t RECORDER_HDF5_DECL(H5Literate2)(hid_t group_id, H5_index_t index_type, H5_iter_order_t order, hsize_t *idx, H5L_iterate_t op, void *op_data);
 herr_t RECORDER_HDF5_DECL(H5Oclose)(hid_t object_id);
 /*
  * Exists in 1.8 not in 1.10, in 1.10 they are H5Oget_info1; H5Oget_info2
