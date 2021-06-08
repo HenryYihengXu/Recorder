@@ -1,4 +1,4 @@
-
+#ifdef RECORDER_GOTCHA
 
 #define __D_MPI_REQUEST MPIO_Request
 
@@ -27,125 +27,6 @@
 #define CONST
 #endif
 
-typedef struct MPICommHash_t {
-    void *key;      // MPI_Comm as key
-    char* id;
-    UT_hash_handle hh;
-} MPICommHash;
-
-typedef struct MPIFileHash_t {
-    void *key;
-    char* id;
-    UT_hash_handle hh;
-} MPIFileHash;
-
-static MPICommHash *mpi_comm_table = NULL;
-static MPIFileHash *mpi_file_table = NULL;
-static int mpi_file_id = 0;
-static int mpi_comm_id = 0;
-
-void add_mpi_file(MPI_Comm comm, MPI_File *file) {
-    if(file == NULL)
-        return;
-
-    int rank, world_rank;
-    PMPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-    PMPI_Comm_rank(comm, &rank);
-
-    MPIFileHash *entry = malloc(sizeof(MPIFileHash));
-    entry->key = malloc(sizeof(MPI_File));
-    memcpy(entry->key, file, sizeof(MPI_File));
-
-    char* id = calloc(32, sizeof(char));
-    if(rank == 0)
-        sprintf(id, "%d-%d", world_rank, mpi_file_id++);
-    PMPI_Bcast(id, 32, MPI_BYTE, 0, comm);
-    entry->id = id;
-
-    HASH_ADD_KEYPTR(hh, mpi_file_table, entry->key, sizeof(MPI_File), entry);
-}
-
-char* file2id(MPI_File *file) {
-    if(file == NULL)
-        return strdup("MPI_FILE_NULL");
-    else {
-        MPIFileHash *entry = NULL;
-        HASH_FIND(hh, mpi_file_table, file, sizeof(MPI_File), entry);
-        if(entry)
-            return strdup(entry->id);
-        else
-            return strdup("MPI_FILE_UNKNOWN");
-    }
-}
-
-void add_mpi_comm(MPI_Comm *newcomm) {
-    if(newcomm == NULL || *newcomm == MPI_COMM_NULL)
-        return;
-    int new_rank, world_rank;
-    PMPI_Comm_rank(*newcomm, &new_rank);
-    PMPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-
-    MPICommHash *entry = malloc(sizeof(MPICommHash));
-    entry->key = malloc(sizeof(MPI_Comm));
-    memcpy(entry->key, newcomm, sizeof(MPI_Comm));
-
-    // Rank 0 of the new communicator decides an unique id
-    // and broadcast it to all others, then everyone stores it
-    // in the hash table.
-    char *id = calloc(32, sizeof(char));
-    if(new_rank == 0)
-        sprintf(id, "%d-%d", world_rank, mpi_comm_id++);
-    PMPI_Bcast(id, 32, MPI_BYTE, 0, *newcomm);
-    entry->id = id;
-
-    HASH_ADD_KEYPTR(hh, mpi_comm_table, entry->key, sizeof(MPI_Comm), entry);
-}
-
-char* comm2name(MPI_Comm *comm) {
-    if(comm == NULL || *comm == MPI_COMM_NULL)
-        return strdup("MPI_COMM_NULL");
-    else if(*comm == MPI_COMM_WORLD) {
-        return strdup("MPI_COMM_WORLD");
-    } else if(*comm == MPI_COMM_SELF) {
-        return strdup("MPI_COMM_SELF");
-    } else {
-        MPICommHash *entry = NULL;
-        HASH_FIND(hh, mpi_comm_table, comm, sizeof(MPI_Comm), entry);
-        if(entry)
-            return strdup(entry->id);
-        else
-            return strdup("MPI_COMM_UNKNOWN");
-    }
-}
-
-static inline char *type2name(MPI_Datatype type) {
-    char *tmp = malloc(128);
-    int len;
-    PMPI_Type_get_name(type, tmp, &len);
-    tmp[len] = 0;
-    if(len == 0) strcpy(tmp, "MPI_TYPE_UNKNOWN");
-    return tmp;
-}
-
-static inline char* status2str(MPI_Status *status) {
-    char *tmp = calloc(128, sizeof(char));
-    if(status == MPI_STATUS_IGNORE)
-        strcpy(tmp, "MPI_STATUS_IGNORE");
-    else
-        sprintf(tmp, "[%d %d %d]", status->MPI_SOURCE, status->MPI_TAG, status->MPI_ERROR);
-    return tmp;
-}
-
-static inline char* whence2name(int whence) {
-    if(whence == MPI_SEEK_SET)
-        return strdup("MPI_SEEK_SET");
-    if(whence == MPI_SEEK_CUR)
-        return strdup("MPI_SEEK_CUR");
-    if(whence == MPI_SEEK_END)
-        return strdup("MPI_SEEK_END");
-}
-
-
 /**
  * Intercept the following functions
  */
@@ -164,13 +45,8 @@ int RECORDER_MPI_DECL(MPI_Gatherv)(CONST void *sbuf, int scount, MPI_Datatype st
         CONST int *rcount, CONST int *displs, MPI_Datatype rtype, int root, MPI_Comm comm);
 int RECORDER_MPI_DECL(MPI_Scatterv)(CONST void *sbuf, CONST int *scount, CONST int *displa,
         MPI_Datatype stype, void *rbuf, int rcount, MPI_Datatype rtype, int root, MPI_Comm comm);
-
-/*
-   int MPI_Allgather(CONST void* sbuf, int scount, MPI_Datatype stype, void* rbuf,
-   int rcount, MPI_Datatype rtype, MPI_Comm comm ) {
-   }
-   */
-
+int RECORDER_MPI_DECL(MPI_Allgather)(CONST void* sbuf, int scount, MPI_Datatype stype, void* rbuf, int rcount, 
+        MPI_Datatype rtype, MPI_Comm comm);
 int RECORDER_MPI_DECL(MPI_Allgatherv)(CONST void *sbuf, int scount, MPI_Datatype stype, void *rbuf,
         CONST int *rcount, CONST int *displs, MPI_Datatype rtype, MPI_Comm comm);
 int RECORDER_MPI_DECL(MPI_Alltoall)(CONST void *sbuf, int scount, MPI_Datatype stype, void *rbuf,
@@ -259,3 +135,5 @@ int RECORDER_MPI_DECL(MPI_Ialltoall) (const void *sbuf, int scount, MPI_Datatype
 int RECORDER_MPI_DECL(MPI_Comm_free) (MPI_Comm *comm);
 int RECORDER_MPI_DECL(MPI_Cart_sub) (MPI_Comm comm, const int remain_dims[], MPI_Comm *newcomm);
 int RECORDER_MPI_DECL(MPI_Comm_split_type) (MPI_Comm comm, int split_type, int key, MPI_Info info, MPI_Comm *newcomm);
+
+#endif /* RECORDER_GOTCHA */
