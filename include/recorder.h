@@ -56,6 +56,9 @@
 #include "uthash.h"
 #include "recorder-utils.h"
 #include "recorder-log-format.h"
+#include "recorder-posix.h"
+#include "recorder-mpi.h"
+#include "recorder-hdf5.h"
 
 #define __D_MPI_REQUEST MPIO_Request
 #if MPI_VERSION >= 3
@@ -106,10 +109,10 @@ void write_record(Record *record);
     /* Point __real_func to the real funciton using dlsym() */
     #define MAP_OR_FAIL(func)                                                   \
         if (!(__real_##func)) {                                                 \
-            __real_ ## name = gotcha_get_wrappee(wrappee_handle_ ## name); \
+            __real_ ## func = gotcha_get_wrappee(wrappee_handle_ ## func); \
             if (!(__real_##func)) { \
-                assert(!"missing Gotcha wrappee for " #name); \
-            } \                                                                  \
+                assert(!"missing Gotcha wrappee for " #func); \
+            }                                                                   \
         }
     /*
      * Call the real funciton

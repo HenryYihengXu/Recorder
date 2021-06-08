@@ -6,8 +6,8 @@
 #include <string.h>
 #include <limits.h>
 #include "mpi.h"
-#include "recorder.h"
 #include "hdf5.h"
+#define RECORDER_HDF5_DECL(func) __wrap_##func
 
 hid_t RECORDER_HDF5_DECL(H5Fcreate)(const char *filename, unsigned flags, hid_t create_plist, hid_t access_plist);
 hid_t RECORDER_HDF5_DECL(H5Fopen)(const char *filename, unsigned flags, hid_t access_plist);

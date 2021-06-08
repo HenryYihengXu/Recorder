@@ -19,13 +19,14 @@
 #include <search.h>
 
 #include "mpi.h"
-#include "recorder.h"
 
 #if MPI_VERSION >= 3
 #define CONST const
 #else
 #define CONST
 #endif
+
+#define RECORDER_MPI_DECL(func) __wrap_##func
 
 /**
  * Intercept the following functions

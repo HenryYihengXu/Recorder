@@ -15,11 +15,12 @@
 #include <assert.h>
 #include <limits.h>
 #include <pthread.h>
-#include "recorder.h"
 
 #ifndef HAVE_OFF64_T
 typedef int64_t off64_t;
 #endif
+
+#define RECORDER_POSIX_DECL(func) __wrap_##func
 
 int RECORDER_POSIX_DECL(close)(int fd);
 int RECORDER_POSIX_DECL(fclose)(FILE *fp);
