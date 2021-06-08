@@ -17,7 +17,6 @@ static FilenameHashTable* filename_table = NULL;
 
 
 void utils_init() {
-    MAP_OR_FAIL(PMPI_Wtime);
     log_pointer = false;
     const char* s = getenv("RECORDER_LOG_POINTER");
     if(s)
@@ -93,10 +92,11 @@ inline long get_file_size(const char *filename) {
 }
 
 inline double recorder_wtime(void) {
-  //struct timeval time;
-  //gettimeofday(&time, NULL);
-  //return (time.tv_sec + ((double)time.tv_usec / 1000000));
-  return PMPI_Wtime();
+  struct timeval time;
+  gettimeofday(&time, NULL);
+  return (time.tv_sec + ((double)time.tv_usec / 1000000));
+  // Cannot use PMPI_Wtime here as MPI_Init may not be initialized
+  //return PMPI_Wtime();
 }
 
 /* Integer to stirng */
@@ -210,4 +210,3 @@ inline char* realrealpath(const char *path) {
         return strdup(entry->name);
     }
 }
-
