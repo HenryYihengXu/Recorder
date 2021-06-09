@@ -306,7 +306,7 @@ RECORDER_FORWARD_DECL(ftello, off_t, (FILE *stream));
 //int fstatfs(int fd, struct statfs *buf);
 
 
-
+#ifndef RECORDER_GOTCHA
 /* MPI Function Calls */
 RECORDER_FORWARD_DECL(PMPI_Comm_size, int, (MPI_Comm comm, int *size));
 RECORDER_FORWARD_DECL(PMPI_Comm_rank, int, (MPI_Comm comm, int *rank));
@@ -404,8 +404,105 @@ RECORDER_FORWARD_DECL(PMPI_Comm_free, int, (MPI_Comm *comm));
 RECORDER_FORWARD_DECL(PMPI_Cart_sub, int, (MPI_Comm comm, const int remain_dims[], MPI_Comm *newcomm));
 RECORDER_FORWARD_DECL(PMPI_Comm_split_type, int, (MPI_Comm comm, int split_type, int key, MPI_Info info, MPI_Comm *newcomm));
 
+#else
+/* MPI Function Calls */
+RECORDER_FORWARD_DECL(MPI_Comm_size, int, (MPI_Comm comm, int *size));
+RECORDER_FORWARD_DECL(MPI_Comm_rank, int, (MPI_Comm comm, int *rank));
+RECORDER_FORWARD_DECL(MPI_Get_processor_name, int, (char *name, int *resultlen));
+RECORDER_FORWARD_DECL(MPI_Comm_set_errhandler, int, (MPI_Comm comm, MPI_Errhandler errhandler));
+RECORDER_FORWARD_DECL(MPI_Barrier, int, (MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Bcast, int, (void *buffer, int count, MPI_Datatype datatype, int root, MPI_Comm comm));
+// Add MPI_Ibcast on 2020/11/13
+RECORDER_FORWARD_DECL(MPI_Ibcast, int, (void *buffer, int count, MPI_Datatype datatype, int root, MPI_Comm comm, MPI_Request *request));
+RECORDER_FORWARD_DECL(MPI_Gather, int, (CONST void *sbuf, int scount, MPI_Datatype stype, void *rbuf, int rcount, MPI_Datatype rtype, int root, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Scatter, int, (CONST void *sbuf, int scount, MPI_Datatype stype, void *rbuf, int rcount, MPI_Datatype rtype, int root, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Gatherv, int, (CONST void *sbuf, int scount, MPI_Datatype stype, void *rbuf, CONST int *rcount, CONST int *displs, MPI_Datatype rtype, int root, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Scatterv, int, (CONST void *sbuf, CONST int *scount, CONST int *displa, MPI_Datatype stype, void *rbuf, int rcount, MPI_Datatype rtype, int root, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Allgather, int, (CONST void *sbuf, int scount, MPI_Datatype stype, void *rbuf, int rcount, MPI_Datatype rtype, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Allgatherv, int, (CONST void *sbuf, int scount, MPI_Datatype stype, void *rbuf, CONST int *rcount, CONST int *displs, MPI_Datatype rtype, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Alltoall, int, (CONST void *sbuf, int scount, MPI_Datatype stype, void *rbuf, int rcount, MPI_Datatype rtype, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Reduce, int, (CONST void *sbuf, void *rbuf, int count, MPI_Datatype stype, MPI_Op op, int root, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Allreduce, int, (CONST void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Reduce_scatter, int, (CONST void *sbuf, void *rbuf, CONST int *rcounts, MPI_Datatype stype, MPI_Op op, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Scan, int, (CONST void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Type_create_darray, int, (int size, int rank, int ndims, CONST int array_of_gsizes[], CONST int array_of_distribs[],CONST int array_of_dargs[], CONST int array_of_psizes[], int order, MPI_Datatype oldtype, MPI_Datatype *newtype));
+RECORDER_FORWARD_DECL(MPI_Type_commit, int, (MPI_Datatype * datatype));
+RECORDER_FORWARD_DECL(MPI_File_open, int, (MPI_Comm comm, CONST char *filename, int amode, MPI_Info info, MPI_File *fh));
+RECORDER_FORWARD_DECL(MPI_File_close, int, (MPI_File * fh));
+RECORDER_FORWARD_DECL(MPI_File_sync, int, (MPI_File fh));
+RECORDER_FORWARD_DECL(MPI_File_set_size, int, (MPI_File fh, MPI_Offset size));
+RECORDER_FORWARD_DECL(MPI_File_set_view, int, (MPI_File fh, MPI_Offset disp, MPI_Datatype etype, MPI_Datatype filetype, CONST char *datarep, MPI_Info info));
+RECORDER_FORWARD_DECL(MPI_File_read, int, (MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_read_at, int, (MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_read_at_all, int, (MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_read_all, int, (MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_read_shared, int, (MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_read_ordered, int, (MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_read_at_all_begin, int, (MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype));
+RECORDER_FORWARD_DECL(MPI_File_read_all_begin, int, (MPI_File fh, void *buf, int count, MPI_Datatype datatype));
+RECORDER_FORWARD_DECL(MPI_File_read_ordered_begin, int, (MPI_File fh, void *buf, int count, MPI_Datatype datatype));
+RECORDER_FORWARD_DECL(MPI_File_iread_at, int, (MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
+RECORDER_FORWARD_DECL(MPI_File_iread, int, (MPI_File fh, void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
+RECORDER_FORWARD_DECL(MPI_File_iread_shared, int, (MPI_File fh, void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
+RECORDER_FORWARD_DECL(MPI_File_write, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_write_at, int, (MPI_File fh, MPI_Offset offset, CONST void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_write_at_all, int, (MPI_File fh, MPI_Offset offset, CONST void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_write_all, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_write_shared, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_write_ordered, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_File_write_at_all_begin, int, (MPI_File fh, MPI_Offset offset, CONST void *buf, int count, MPI_Datatype datatype));
+RECORDER_FORWARD_DECL(MPI_File_write_all_begin, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype));
+RECORDER_FORWARD_DECL(MPI_File_write_ordered_begin, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype));
+RECORDER_FORWARD_DECL(MPI_File_iwrite_at, int, (MPI_File fh, MPI_Offset offset, CONST void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
+RECORDER_FORWARD_DECL(MPI_File_iwrite, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
+RECORDER_FORWARD_DECL(MPI_File_iwrite_shared, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
+// MPI_Finalize wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+RECORDER_FORWARD_DECL(MPI_Finalize, int, ()); 
+RECORDER_FORWARD_DECL(MPI_Finalized, int, (int *flag));
+// MPI_Init wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+RECORDER_FORWARD_DECL(MPI_Init, int, (int *argc, char ***argv)); 
+// MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+RECORDER_FORWARD_DECL(MPI_Init_thread, int, (int *argc, char ***argv, int required, int *provided));
+// Added 10 new MPI functinos on 2019/01/07
+RECORDER_FORWARD_DECL(MPI_Cart_rank, int, (MPI_Comm comm, CONST int coords[], int *rank));
+RECORDER_FORWARD_DECL(MPI_Cart_create, int, (MPI_Comm comm_old, int ndims, CONST int dims[], CONST int periods[], int reorder, MPI_Comm *comm_cart));
+RECORDER_FORWARD_DECL(MPI_Cart_get, int, (MPI_Comm comm, int maxdims, int dims[], int periods[], int coords[]));
+RECORDER_FORWARD_DECL(MPI_Cart_shift, int, (MPI_Comm comm, int direction, int disp, int *rank_source, int *rank_dest));
+RECORDER_FORWARD_DECL(MPI_Wait, int, (MPI_Request *request, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_Send, int, (CONST void *buf, int count, MPI_Datatype datatype, int dest, int tag,MPI_Comm comm));
+RECORDER_FORWARD_DECL(MPI_Recv, int, (void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_Sendrecv, int, (CONST void *sendbuf, int sendcount, MPI_Datatype sendtype, int dest, int sendtag, void *recvbuf, int recvcount, MPI_Datatype recvtype, int source, int recvtag, MPI_Comm comm, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_Isend, int, (CONST void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request));
+RECORDER_FORWARD_DECL(MPI_Irecv, int, (void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Request *request));
+// Add MPI_Waitall, MPI_Waitsome, MPI_Waitany, MPI_Ssend on 2020/08/06
+RECORDER_FORWARD_DECL(MPI_Waitall, int, (int count, MPI_Request array_of_requests[], MPI_Status array_of_statuses[]));
+RECORDER_FORWARD_DECL(MPI_Waitsome, int, (int incount, MPI_Request array_of_requests[], int *outcount, int array_of_indices[], MPI_Status array_of_statuses[]));
+RECORDER_FORWARD_DECL(MPI_Waitany, int, (int count, MPI_Request array_of_requests[], int *indx, MPI_Status * status));
+RECORDER_FORWARD_DECL(MPI_Ssend, int, (CONST void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm));
+// Add MPI_Comm_split on 2020/08/17
+RECORDER_FORWARD_DECL(MPI_Comm_split, int, (MPI_Comm comm, int color, int key, MPI_Comm * newcomm));
+RECORDER_FORWARD_DECL(MPI_Comm_create, int, (MPI_Comm comm, MPI_Group group, MPI_Comm * newcomm));
+RECORDER_FORWARD_DECL(MPI_Comm_dup, int, (MPI_Comm comm, MPI_Comm * newcomm));
+// Add MPI_File_seek and MPI_File_seek_shared on 2020/08/27
+RECORDER_FORWARD_DECL(MPI_File_seek, int, (MPI_File fh, MPI_Offset offset, int whence));
+RECORDER_FORWARD_DECL(MPI_File_seek_shared, int, (MPI_File fh, MPI_Offset offset, int whence));
+RECORDER_FORWARD_DECL(MPI_File_get_size, int, (MPI_File fh, MPI_Offset *size));
+// Add MPI_Test, MPI_Testany, MPI_Testsome, MPI_Testall,
+// MPI_Ireduce, MPI_Igather, MPI_Iscatter and MPI_Ialltoall on 2020/12/18
+RECORDER_FORWARD_DECL(MPI_Test, int, (MPI_Request *request, int *flag, MPI_Status *status));
+RECORDER_FORWARD_DECL(MPI_Testall, int, (int count, MPI_Request array_of_requests[], int *flag, MPI_Status array_of_statuses[]));
+RECORDER_FORWARD_DECL(MPI_Testsome, int, (int incount, MPI_Request array_of_requests[], int *outcount, int array_of_indices[], MPI_Status array_of_statuses[]));
+RECORDER_FORWARD_DECL(MPI_Testany, int, (int count, MPI_Request array_of_requests[], int *indx, int *flag, MPI_Status * status));
+RECORDER_FORWARD_DECL(MPI_Ireduce, int, (const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, int root, MPI_Comm comm, MPI_Request *request));
+RECORDER_FORWARD_DECL(MPI_Igather, int, (const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm, MPI_Request *request));
+RECORDER_FORWARD_DECL(MPI_Iscatter, int, (const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm, MPI_Request *request));
+RECORDER_FORWARD_DECL(MPI_Ialltoall, int, (const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm, MPI_Request * request));
+// Add on 2021/01/25
+RECORDER_FORWARD_DECL(MPI_Comm_free, int, (MPI_Comm *comm));
+RECORDER_FORWARD_DECL(MPI_Cart_sub, int, (MPI_Comm comm, const int remain_dims[], MPI_Comm *newcomm));
+RECORDER_FORWARD_DECL(MPI_Comm_split_type, int, (MPI_Comm comm, int split_type, int key, MPI_Info info, MPI_Comm *newcomm));
 
-
+#endif /* RECORDER_GOTCHA */
 /* NOTE: using HDF5 1.8 version */
 /* HDF5 Function Calls */
 /* File Interface */
