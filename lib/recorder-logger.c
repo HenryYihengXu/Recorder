@@ -258,7 +258,11 @@ void logger_init(int rank, int nprocs) {
     MAP_OR_FAIL(remove);
     MAP_OR_FAIL(access);
     MAP_OR_FAIL(mkdir);
+#ifndef RECORDER_GOTCHA
     MAP_OR_FAIL(PMPI_Barrier);
+#else
+    MAP_OR_FAIL(MPI_Barrier);
+#endif /* RECORDER_GOTCHA */
 
     // Initialize the global values
     logger.rank = rank;
@@ -286,8 +290,11 @@ void logger_init(int rank, int nprocs) {
             RECORDER_REAL_CALL(remove) (traces_dir);
         RECORDER_REAL_CALL(mkdir) (traces_dir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
     }
+#ifndef RECORDER_GOTCHA
     RECORDER_REAL_CALL(PMPI_Barrier) (MPI_COMM_WORLD);
-
+#else
+    RECORDER_REAL_CALL(MPI_Barrier) (MPI_COMM_WORLD);
+#endif /* RECORDER_GOTCHA */
 
     logger.trace_file = RECORDER_REAL_CALL(fopen) (logfile_name, "wb");
     logger.meta_file = RECORDER_REAL_CALL(fopen) (metafile_name, "wb");
