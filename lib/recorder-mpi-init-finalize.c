@@ -76,6 +76,7 @@ void recorder_finalize() {
         printf("[Recorder] elapsed time on rank 0: %.2f\n", local_tend-local_tstart);
 }
 
+#ifndef RECORDER_GOTCHA
 int PMPI_Init(int *argc, char ***argv) {
     MAP_OR_FAIL(PMPI_Init)
     int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
@@ -109,3 +110,39 @@ int MPI_Finalize(void) {
     int res = RECORDER_REAL_CALL(PMPI_Finalize) ();
     return res;
 }
+
+#else
+int RECORDER_MPI_DECL(PMPI_Init)(int *argc, char ***argv) {
+    MAP_OR_FAIL(PMPI_Init)
+    int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
+    recorder_init(argc, argv);
+    return ret;
+}
+
+int RECORDER_MPI_DECL(MPI_Init)(int *argc, char ***argv) {
+    MAP_OR_FAIL(MPI_Init)
+    int ret = RECORDER_REAL_CALL(MPI_Init) (argc, argv);
+    recorder_init(argc, argv);
+    return ret;
+}
+
+int RECORDER_MPI_DECL(MPI_Init_thread)(int *argc, char ***argv, int required, int *provided) {
+    MAP_OR_FAIL(MPI_Init_thread)
+    int ret = RECORDER_REAL_CALL(MPI_Init_thread) (argc, argv, required, provided);
+    recorder_init(argc, argv);
+    return ret;
+}
+
+int RECORDER_MPI_DECL(PMPI_Finalize)(void) {
+    recorder_finalize();
+    MAP_OR_FAIL(PMPI_Finalize);
+    return RECORDER_REAL_CALL(PMPI_Finalize) ();
+}
+
+int MPI_Finalize(void) {
+    recorder_finalize();
+    MAP_OR_FAIL(MPI_Finalize);
+    int res = RECORDER_REAL_CALL(MPI_Finalize) ();
+    return res;
+}
+#endif /* RECORDER_GOTCHA */

@@ -163,6 +163,9 @@ recorder_wrappers = {
     { "MPI_Comm_free", RECORDER_MPI_DECL(MPI_Comm_free), &RECORDER_WRAPPEE_HANDLE(MPI_Comm_free) },
     { "MPI_Cart_sub", RECORDER_MPI_DECL(MPI_Cart_sub), &RECORDER_WRAPPEE_HANDLE(MPI_Cart_sub) },
     { "MPI_Comm_split_type", RECORDER_MPI_DECL(MPI_Comm_split_type), &RECORDER_WRAPPEE_HANDLE(MPI_Comm_split_type) },
+    /* PMPI_Init PMPI_Finalize are wrapped separately*/
+    { "PMPI_Init", RECORDER_MPI_DECL(PMPI_Init), &RECORDER_WRAPPEE_HANDLE(PMPI_Init) },
+    { "PMPI_Finalize", RECORDER_MPI_DECL(PMPI_Finalize), &RECORDER_WRAPPEE_HANDLE(PMPI_Finalize) },
 
     /* HDF5 Function Calls */
     /* NOTE: using HDF5 1.8 version */

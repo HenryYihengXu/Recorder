@@ -501,8 +501,12 @@ RECORDER_FORWARD_DECL(MPI_Ialltoall, int, (const void *sendbuf, int sendcount, M
 RECORDER_FORWARD_DECL(MPI_Comm_free, int, (MPI_Comm *comm));
 RECORDER_FORWARD_DECL(MPI_Cart_sub, int, (MPI_Comm comm, const int remain_dims[], MPI_Comm *newcomm));
 RECORDER_FORWARD_DECL(MPI_Comm_split_type, int, (MPI_Comm comm, int split_type, int key, MPI_Info info, MPI_Comm *newcomm));
+/* PMPI_Init PMPI_Finalize are wrapped separately*/
+RECORDER_FORWARD_DECL(PMPI_Init);
+RECORDER_FORWARD_DECL(PMPI_Finalize);
 
 #endif /* RECORDER_GOTCHA */
+
 /* NOTE: using HDF5 1.8 version */
 /* HDF5 Function Calls */
 /* File Interface */
