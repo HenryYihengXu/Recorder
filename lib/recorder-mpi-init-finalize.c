@@ -56,10 +56,18 @@ static double local_tstart, local_tend;
 static int rank, nprocs;
 
 void recorder_init(int *argc, char ***argv) {
+#ifndef RECORDER_GOTCHA
     MAP_OR_FAIL(PMPI_Comm_size)
     MAP_OR_FAIL(PMPI_Comm_rank)
     RECORDER_REAL_CALL(PMPI_Comm_rank)(MPI_COMM_WORLD, &rank);
     RECORDER_REAL_CALL(PMPI_Comm_size)(MPI_COMM_WORLD, &nprocs);
+#else
+    MAP_OR_FAIL(MPI_Comm_size)
+    MAP_OR_FAIL(MPI_Comm_rank)
+    RECORDER_REAL_CALL(MPI_Comm_rank)(MPI_COMM_WORLD, &rank);
+    RECORDER_REAL_CALL(MPI_Comm_size)(MPI_COMM_WORLD, &nprocs);
+#endif /* RECORDER_GOTCHA */
+    
 
     logger_init(rank, nprocs);
     utils_init();
