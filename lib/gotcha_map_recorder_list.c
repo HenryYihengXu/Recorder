@@ -4,6 +4,8 @@
 #include "recorder-posix.h"
 #include "recorder-mpi.h"
 #include "recorder-hdf5.h"
+#include "gotcha/gotcha_types.h"
+#include "gotcha/gotcha.h"
 
 struct gotcha_binding_t recorder_wrappers[] = {
     /* POSIX I/O */
