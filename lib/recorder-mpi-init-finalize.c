@@ -153,6 +153,7 @@ int RECORDER_MPI_DECL(PMPI_Finalize)(void) {
 }
 
 int RECORDER_MPI_DECL(MPI_Finalize)(void) {
+    printf("In MPI_Finalize wrapper\n");
     recorder_finalize();
     MAP_OR_FAIL(MPI_Finalize);
     int res = RECORDER_REAL_CALL(MPI_Finalize) ();
