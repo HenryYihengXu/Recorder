@@ -1,5 +1,5 @@
 #ifdef RECORDER_GOTCHA
-#include gotcha_map_recorder_list.h
+#include "gotcha_map_recorder_list.h"
 
 recorder_wrappers = {
     /* POSIX I/O */
