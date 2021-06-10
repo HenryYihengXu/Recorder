@@ -267,7 +267,7 @@ int setup_gotcha_wrappers(void)
     enum gotcha_error_t result;
     result = gotcha_wrap(recorder_wrappers, GOTCHA_NFUNCS, "recorder");
     if (result != GOTCHA_SUCCESS) {
-        fprintf(stderr, "gotcha_wrap() returned %d", (int) result);
+        fprintf(stderr, "gotcha_wrap() returned %d\n", (int) result);
         if (result == GOTCHA_FUNCTION_NOT_FOUND) {
             /* one or more functions were not found */
             void* fn;
@@ -276,7 +276,7 @@ int setup_gotcha_wrappers(void)
                 hdlptr = recorder_wrappers[i].function_handle;
                 fn = gotcha_get_wrappee(*hdlptr);
                 if (NULL == fn) {
-                    fprintf(stderr, "Gotcha failed to wrap function '%s'",
+                    fprintf(stderr, "Gotcha failed to wrap function '%s'\n",
                             recorder_wrappers[i].name);
                 }
             }
