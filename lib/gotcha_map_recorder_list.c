@@ -201,7 +201,7 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "H5Screate_simple", RECORDER_HDF5_DECL(H5Screate_simple), &RECORDER_WRAPPEE_HANDLE(H5Screate_simple) },
     { "H5Sget_select_npoints", RECORDER_HDF5_DECL(H5Sget_select_npoints), &RECORDER_WRAPPEE_HANDLE(H5Sget_select_npoints) },
     { "H5Sget_simple_extent_dims", RECORDER_HDF5_DECL(H5Sget_simple_extent_dims), &RECORDER_WRAPPEE_HANDLE(H5Sget_simple_extent_dims) },
-    { "H5Sget_simple_extent_npoints", RECORDER_HDF5_DECL(H5Sget_simple_extent_npoints), &RECORDER_WRAPPEE_HANDLE(aaaaaaaaaa) },
+    { "H5Sget_simple_extent_npoints", RECORDER_HDF5_DECL(H5Sget_simple_extent_npoints), &RECORDER_WRAPPEE_HANDLE(H5Sget_simple_extent_npoints) },
     { "H5Sselect_elements", RECORDER_HDF5_DECL(H5Sselect_elements), &RECORDER_WRAPPEE_HANDLE(H5Sselect_elements) },
     { "H5Sselect_hyperslab", RECORDER_HDF5_DECL(H5Sselect_hyperslab), &RECORDER_WRAPPEE_HANDLE(H5Sselect_hyperslab) },
     { "H5Sselect_none", RECORDER_HDF5_DECL(H5Sselect_none), &RECORDER_WRAPPEE_HANDLE(H5Sselect_none) },

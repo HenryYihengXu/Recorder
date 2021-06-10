@@ -138,10 +138,10 @@ int RECORDER_MPI_DECL(MPI_Cart_sub) (MPI_Comm comm, const int remain_dims[], MPI
 int RECORDER_MPI_DECL(MPI_Comm_split_type) (MPI_Comm comm, int split_type, int key, MPI_Info info, MPI_Comm *newcomm);
 
 // wrappers not defined in recorder-mpi.c but in recorder-mpi-init-finalize.c
-int RECORDER_MPI_DECL(PMPI_Init) (int *argc, char ***argv)
-int RECORDER_MPI_DECL(MPI_Init) (int *argc, char ***argv)
-int RECORDER_MPI_DECL(MPI_Init_thread) (int *argc, char ***argv, int required, int *provided)
-int RECORDER_MPI_DECL(PMPI_Finalize) (void)
-int RECORDER_MPI_DECL(MPI_Finalize) (void)
+int RECORDER_MPI_DECL(PMPI_Init) (int *argc, char ***argv);
+int RECORDER_MPI_DECL(MPI_Init) (int *argc, char ***argv);
+int RECORDER_MPI_DECL(MPI_Init_thread) (int *argc, char ***argv, int required, int *provided);
+int RECORDER_MPI_DECL(PMPI_Finalize) (void);
+int RECORDER_MPI_DECL(MPI_Finalize) (void);
 
 #endif /* RECORDER_GOTCHA */
