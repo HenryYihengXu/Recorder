@@ -37,7 +37,9 @@ RECORDER_WRAPPEE_HANDLE_DECL(readv);
 RECORDER_WRAPPEE_HANDLE_DECL(writev);
 RECORDER_WRAPPEE_HANDLE_DECL(fread);
 RECORDER_WRAPPEE_HANDLE_DECL(fwrite);
-RECORDER_WRAPPEE_HANDLE_DECL(fprintf);   // we need to use vprintf to trace fprintf so we can pass va_list
+// we need to use vprintf to trace fprintf so we can pass va_list
+RECORDER_WRAPPEE_HANDLE_DECL(fprintf); 
+RECORDER_WRAPPEE_HANDLE_DECL(vfprintf);
 RECORDER_WRAPPEE_HANDLE_DECL(read);
 RECORDER_WRAPPEE_HANDLE_DECL(write);
 RECORDER_WRAPPEE_HANDLE_DECL(fseek);
@@ -65,7 +67,7 @@ RECORDER_WRAPPEE_HANDLE_DECL(utime);
 RECORDER_WRAPPEE_HANDLE_DECL(opendir);
 RECORDER_WRAPPEE_HANDLE_DECL(readdir);
 RECORDER_WRAPPEE_HANDLE_DECL(closedir);
-RECORDER_WRAPPEE_HANDLE_DECL(rewinddir); // no wrapper definition
+// RECORDER_WRAPPEE_HANDLE_DECL(rewinddir); // no wrapper definition
 RECORDER_WRAPPEE_HANDLE_DECL(mknod);
 RECORDER_WRAPPEE_HANDLE_DECL(mknodat);
 // Advanced File Operations
