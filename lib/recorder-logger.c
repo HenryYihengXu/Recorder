@@ -11,6 +11,9 @@
 #define MEMBUF_SIZE 6*1024*1024                 // Memory buffer size, default 6MB
 #define VERSION_STR "2.2.0"
 
+#ifdef RECORDER_GOTCHA
+#include "gotcha_map_recorder_list.h"
+#endif
 
 struct RecorderLogger {
     int rank;
