@@ -52,6 +52,7 @@
 #include <stdint.h>
 #include <mpi.h>
 #include <stdbool.h>
+#include <assert.h>
 #include "hdf5.h"
 #include "uthash.h"
 #include "recorder-utils.h"

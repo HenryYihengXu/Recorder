@@ -51,6 +51,9 @@
 #include "mpi.h"
 #include "recorder.h"
 
+#ifdef RECORDER_GOTCHA
+#include "gotcha_map_recorder_list.h"
+#endif
 
 static double local_tstart, local_tend;
 static int rank, nprocs;
