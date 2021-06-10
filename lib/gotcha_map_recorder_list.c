@@ -1,7 +1,8 @@
 #ifdef RECORDER_GOTCHA
 #include "gotcha_map_recorder_list.h"
+#include "recorder.h"
 
-recorder_wrappers = {
+struct gotcha_binding_t recorder_wrappers[] = {
     /* POSIX I/O */
     { "close", RECORDER_POSIX_DECL(close), &RECORDER_WRAPPEE_HANDLE(close) },
     { "fclose", RECORDER_POSIX_DECL(fclose), &RECORDER_WRAPPEE_HANDLE(fclose) },

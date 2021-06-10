@@ -56,10 +56,10 @@
 #include "uthash.h"
 #include "recorder-utils.h"
 #include "recorder-log-format.h"
-#include "recorder-posix.h"
-#include "recorder-mpi.h"
-#include "recorder-hdf5.h"
-#include "gotcha_map_recorder_list.h"
+// #include "recorder-posix.h"
+// #include "recorder-mpi.h"
+// #include "recorder-hdf5.h"
+// #include "gotcha_map_recorder_list.h"
 
 #define __D_MPI_REQUEST MPIO_Request
 #if MPI_VERSION >= 3
