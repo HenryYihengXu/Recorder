@@ -150,7 +150,7 @@ int RECORDER_MPI_DECL(PMPI_Finalize)(void) {
     return RECORDER_REAL_CALL(PMPI_Finalize) ();
 }
 
-int MPI_Finalize(void) {
+int RECORDER_MPI_DECL(MPI_Finalize)(void) {
     recorder_finalize();
     MAP_OR_FAIL(MPI_Finalize);
     int res = RECORDER_REAL_CALL(MPI_Finalize) ();
