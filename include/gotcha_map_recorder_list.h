@@ -151,7 +151,8 @@ RECORDER_WRAPPEE_HANDLE_DECL(MPI_File_iwrite_shared);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Finalize);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Finalized);
 // MPI_Init wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
-RECORDER_WRAPPEE_HANDLE_DECL(MPI_Init); 
+// We are not going to use gotcha to wrap MPI_Init because the entry of gotcha is in MPI_Init
+// RECORDER_WRAPPEE_HANDLE_DECL(MPI_Init); 
 // MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Init_thread);  
 // Added 10 new MPI functinos on 2019/01/07

@@ -135,7 +135,9 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "MPI_File_iwrite_shared", RECORDER_MPI_DECL(MPI_File_iwrite_shared), &RECORDER_WRAPPEE_HANDLE(MPI_File_iwrite_shared) },
     { "MPI_Finalize", RECORDER_MPI_DECL(MPI_Finalize), &RECORDER_WRAPPEE_HANDLE(MPI_Finalize) },
     { "MPI_Finalized", RECORDER_MPI_DECL(MPI_Finalized), &RECORDER_WRAPPEE_HANDLE(MPI_Finalized) },
-    { "MPI_Init", RECORDER_MPI_DECL(MPI_Init), &RECORDER_WRAPPEE_HANDLE(MPI_Init) },
+    // MPI_Init wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+    // We are not going to use gotcha to wrap MPI_Init because the entry of gotcha is in MPI_Init
+    // { "MPI_Init", RECORDER_MPI_DECL(MPI_Init), &RECORDER_WRAPPEE_HANDLE(MPI_Init) },
     { "MPI_Init_thread", RECORDER_MPI_DECL(MPI_Init_thread), &RECORDER_WRAPPEE_HANDLE(MPI_Init_thread) },
     { "MPI_Cart_rank", RECORDER_MPI_DECL(MPI_Cart_rank), &RECORDER_WRAPPEE_HANDLE(MPI_Cart_rank) },
     { "MPI_Cart_create", RECORDER_MPI_DECL(MPI_Cart_create), &RECORDER_WRAPPEE_HANDLE(MPI_Cart_create) },
@@ -263,7 +265,7 @@ int setup_gotcha_wrappers(void)
     enum gotcha_error_t result;
     result = gotcha_wrap(recorder_wrappers, GOTCHA_NFUNCS, "recorder");
     if (result != GOTCHA_SUCCESS) {
-        LOGERR("gotcha_wrap() returned %d", (int) result);
+        fprintf(stderr, "gotcha_wrap() returned %d", (int) result);
         if (result == GOTCHA_FUNCTION_NOT_FOUND) {
             /* one or more functions were not found */
             void* fn;
@@ -272,7 +274,7 @@ int setup_gotcha_wrappers(void)
                 hdlptr = recorder_wrappers[i].function_handle;
                 fn = gotcha_get_wrappee(*hdlptr);
                 if (NULL == fn) {
-                    LOGWARN("Gotcha failed to wrap function '%s'",
+                    fprintf(stderr, "Gotcha failed to wrap function '%s'",
                             recorder_wrappers[i].name);
                 }
             }

@@ -462,7 +462,8 @@ RECORDER_FORWARD_DECL(MPI_File_iwrite_shared, int, (MPI_File fh, CONST void *buf
 RECORDER_FORWARD_DECL(MPI_Finalize, int, ()); 
 RECORDER_FORWARD_DECL(MPI_Finalized, int, (int *flag));
 // MPI_Init wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
-RECORDER_FORWARD_DECL(MPI_Init, int, (int *argc, char ***argv)); 
+// We are not going to use gotcha to wrap MPI_Init because the entry of gotcha is in MPI_Init
+// RECORDER_FORWARD_DECL(MPI_Init, int, (int *argc, char ***argv)); 
 // MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
 RECORDER_FORWARD_DECL(MPI_Init_thread, int, (int *argc, char ***argv, int required, int *provided));
 // Added 10 new MPI functinos on 2019/01/07
