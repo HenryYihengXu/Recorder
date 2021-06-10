@@ -50,6 +50,9 @@
 #include "recorder.h"
 #include "hdf5.h"
 
+#ifdef RECORDER_GOTCHA
+#include "gotcha_map_recorder_list.h"
+#endif
 
 #define SMALL_BUF_SIZE 128
 #define LARGE_BUF_SIZE 1024

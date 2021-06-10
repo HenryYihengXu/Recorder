@@ -59,6 +59,10 @@
 #include <pthread.h>
 #include "recorder.h"
 
+#ifdef RECORDER_GOTCHA
+#include "gotcha_map_recorder_list.h"
+#endif
+
 #ifndef HAVE_OFF64_T
 typedef int64_t off64_t;
 #endif

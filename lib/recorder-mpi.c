@@ -62,6 +62,10 @@
 #include "mpi.h"
 #include "recorder.h"
 
+#ifdef RECORDER_GOTCHA
+#include "gotcha_map_recorder_list.h"
+#endif
+
 #if MPI_VERSION >= 3
 #define CONST const
 #else
