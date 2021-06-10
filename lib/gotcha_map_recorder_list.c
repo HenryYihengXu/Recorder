@@ -1,6 +1,9 @@
 #ifdef RECORDER_GOTCHA
 #include "gotcha_map_recorder_list.h"
 #include "recorder.h"
+#include "recorder-posix.h"
+#include "recorder-mpi.h"
+#include "recorder-hdf5.h"
 
 struct gotcha_binding_t recorder_wrappers[] = {
     /* POSIX I/O */
