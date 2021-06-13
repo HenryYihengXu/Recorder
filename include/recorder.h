@@ -282,8 +282,8 @@ RECORDER_FORWARD_DECL(readdir, struct dirent*, (DIR *dir));
 RECORDER_FORWARD_DECL(closedir, int, (DIR *dir));
 // rewinddir no wrapper definition
 RECORDER_FORWARD_DECL(rewinddir, void, (DIR *dir)); 
-RECORDER_FORWARD_DECL(mknod, int, (const char *path, mode_t mode, dev_t dev));
-RECORDER_FORWARD_DECL(mknodat, int, (int fd, const char *path, mode_t mode, dev_t dev));
+RECORDER_FORWARD_DECL(__xmknod, int, (int ver, const char *path, mode_t mode, dev_t dev));
+RECORDER_FORWARD_DECL(__xmknodat, int, (int ver, int fd, const char *path, mode_t mode, dev_t dev));
 // Advanced File Operations
 // fcntl depends on DISABLE_FCNTL_TRACE, could be no wrapper definition
 RECORDER_FORWARD_DECL(fcntl, int, (int fd, int cmd, ...)); 

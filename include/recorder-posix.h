@@ -76,8 +76,8 @@ DIR* RECORDER_POSIX_DECL(opendir)(const char *name);
 struct dirent* RECORDER_POSIX_DECL(readdir)(DIR *dir);
 int RECORDER_POSIX_DECL(closedir)(DIR *dir);
 // void RECORDER_POSIX_DECL(rewinddir)(DIR *dir);
-int RECORDER_POSIX_DECL(mknod)(const char *path, mode_t mode, dev_t dev);
-int RECORDER_POSIX_DECL(mknodat)(int fd, const char *path, mode_t mode, dev_t dev);
+int RECORDER_POSIX_DECL(__xmknod)(int ver, const char *path, mode_t mode, dev_t dev);
+int RECORDER_POSIX_DECL(__xmknodat)(int ver, int fd, const char *path, mode_t mode, dev_t dev);
 
 #ifndef DISABLE_FCNTL_TRACE
 int RECORDER_POSIX_DECL(fcntl)(int fd, int cmd, ...);

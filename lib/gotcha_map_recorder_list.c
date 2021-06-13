@@ -64,8 +64,8 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "readdir", RECORDER_POSIX_DECL(readdir), &RECORDER_WRAPPEE_HANDLE(readdir) },
     { "closedir", RECORDER_POSIX_DECL(closedir), &RECORDER_WRAPPEE_HANDLE(closedir) },
     // { "rewinddir", RECORDER_POSIX_DECL(rewinddir), &RECORDER_WRAPPEE_HANDLE(rewinddir) },
-    { "mknod", RECORDER_POSIX_DECL(mknod), &RECORDER_WRAPPEE_HANDLE(mknod) },
-    { "mknodat", RECORDER_POSIX_DECL(mknodat), &RECORDER_WRAPPEE_HANDLE(mknodat) },
+    { "__xmknod", RECORDER_POSIX_DECL(__xmknod), &RECORDER_WRAPPEE_HANDLE(__xmknod) },
+    { "__xmknodat", RECORDER_POSIX_DECL(__xmknodat), &RECORDER_WRAPPEE_HANDLE(__xmknodat) },
 #ifndef DISABLE_FCNTL_TRACE
     { "fcntl", RECORDER_POSIX_DECL(fcntl), &RECORDER_WRAPPEE_HANDLE(fcntl) },
 #endif
