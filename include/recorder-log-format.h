@@ -140,7 +140,7 @@ static const char* func_list[] = {
     "PMPI_File_write_ordered",      "PMPI_File_write_shared",   "PMPI_Finalize",
     "PMPI_Finalized",               "PMPI_Init",                "PMPI_Init_thread",
     /* no wrapper */ "PMPI_Wtime",                   "PMPI_Comm_rank",           "PMPI_Comm_size",
-    "PMPI_Get_processor_name",      /* "PMPI_Get_processor_name" */,  "PMPI_Comm_set_errhandler",
+    "PMPI_Get_processor_name",      /* "PMPI_Get_processor_name", */  "PMPI_Comm_set_errhandler",
     "PMPI_Barrier",                 "PMPI_Bcast",               "PMPI_Gather",
     "PMPI_Gatherv",                 "PMPI_Scatter",             "PMPI_Scatterv",
     "PMPI_Allgather",               "PMPI_Allgatherv",          "PMPI_Alltoall",
@@ -152,10 +152,10 @@ static const char* func_list[] = {
     // Added 2019/01/07
     "PMPI_Cart_rank",               "PMPI_Cart_create",         "PMPI_Cart_get",
     "PMPI_Cart_shift",              "PMPI_Wait",                "PMPI_Send",
-    "PMPI_Recv",                    "PMPI_Sendrecv",            "PMPI_Isend",
+    "PMPI_Recv",                    /* no wrapper */ "PMPI_Sendrecv",            "PMPI_Isend",
     "PMPI_Irecv",
     // Added 2020/02/24
-    "PMPI_Info_create",             "PMPI_Info_set",            "PMPI_Info_get",
+    "PMPI_Info_create",             /* no wrapper */ "PMPI_Info_set",            /* no wrapper */ "PMPI_Info_get",
     // Added 2020/08/06
     "PMPI_Waitall",                 "PMPI_Waitsome",            "PMPI_Waitany",
     "PMPI_Ssend",
@@ -175,7 +175,7 @@ static const char* func_list[] = {
     "MPI_Comm_size",              "MPI_Comm_rank",       "MPI_Get_processor_name",
     "MPI_Comm_set_errhandler",              "MPI_Barrier",   "MPI_Bcast",
     "MPI_Ibcast",             "MPI_Gather",  "MPI_Scatter",
-    "MPI_Datatype",     "MPI_Gatherv",       "MPI_Scatterv",
+    "MPI_Gatherv",       "MPI_Scatterv",
     "MPI_Allgather",  "MPI_Allgatherv",        "MPI_Alltoall",
     "MPI_Reduce", "MPI_Allreduce",   "MPI_Reduce_scatter",
     "MPI_Scan",           "MPI_Type_create_darray",           "MPI_Type_commit",
