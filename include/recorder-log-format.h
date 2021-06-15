@@ -126,7 +126,7 @@ static const char* func_list[] = {
     "remove",       "truncate",     "ftruncate",    "vfprintf", "msync",
     "fseeko",       "ftello",
 
-
+#ifndef RECORDER_GOTCHA
     // MPI 87 functions
     "PMPI_File_close",              "PMPI_File_set_size",       "PMPI_File_iread_at",
     "PMPI_File_iread",              "PMPI_File_iread_shared",   "PMPI_File_iwrite_at",
@@ -139,16 +139,16 @@ static const char* func_list[] = {
     "PMPI_File_write_at",           "PMPI_File_write",          "PMPI_File_write_ordered_begin",
     "PMPI_File_write_ordered",      "PMPI_File_write_shared",   "PMPI_Finalize",
     "PMPI_Finalized",               "PMPI_Init",                "PMPI_Init_thread",
-    "PMPI_Wtime",                   "PMPI_Comm_rank",           "PMPI_Comm_size",
-    "PMPI_Get_processor_name",      "PMPI_Get_processor_name",  "PMPI_Comm_set_errhandler",
+    /* no wrapper */ "PMPI_Wtime",                   "PMPI_Comm_rank",           "PMPI_Comm_size",
+    "PMPI_Get_processor_name",      /* "PMPI_Get_processor_name" */,  "PMPI_Comm_set_errhandler",
     "PMPI_Barrier",                 "PMPI_Bcast",               "PMPI_Gather",
     "PMPI_Gatherv",                 "PMPI_Scatter",             "PMPI_Scatterv",
     "PMPI_Allgather",               "PMPI_Allgatherv",          "PMPI_Alltoall",
     "PMPI_Reduce",                  "PMPI_Allreduce",           "PMPI_Reduce_scatter",
-    "PMPI_Scan",                    "PMPI_Type_commit",         "PMPI_Type_contiguous",
-    "PMPI_Type_extent",             "PMPI_Type_free",           "PMPI_Type_hindexed",
-    "PMPI_Op_create",               "PMPI_Op_free",             "PMPI_Type_get_envelope",
-    "PMPI_Type_size",
+    "PMPI_Scan",                    "PMPI_Type_commit",         /* no wrapper */ "PMPI_Type_contiguous",
+    /* no wrapper */ "PMPI_Type_extent",            /* no wrapper */ "PMPI_Type_free",          /* no wrapper */ "PMPI_Type_hindexed",
+    /* no wrapper */ "PMPI_Op_create",              /* no wrapper */ "PMPI_Op_free",            /* no wrapper */ "PMPI_Type_get_envelope",
+    /* no wrapper */ "PMPI_Type_size",
     // Added 2019/01/07
     "PMPI_Cart_rank",               "PMPI_Cart_create",         "PMPI_Cart_get",
     "PMPI_Cart_shift",              "PMPI_Wait",                "PMPI_Send",
@@ -171,7 +171,44 @@ static const char* func_list[] = {
     "PMPI_Igather",                 "PMPI_Ialltoall",
     // Added 2021/01/25
     "PMPI_Comm_free",               "PMPI_Cart_sub",            "PMPI_Comm_split_type",
-
+#else
+    "MPI_Comm_size",              "MPI_Comm_rank",       "MPI_Get_processor_name",
+    "MPI_Comm_set_errhandler",              "MPI_Barrier",   "MPI_Bcast",
+    "MPI_Ibcast",             "MPI_Gather",  "MPI_Scatter",
+    "MPI_Datatype",     "MPI_Gatherv",       "MPI_Scatterv",
+    "MPI_Allgather",  "MPI_Allgatherv",        "MPI_Alltoall",
+    "MPI_Reduce", "MPI_Allreduce",   "MPI_Reduce_scatter",
+    "MPI_Scan",           "MPI_Type_create_darray",           "MPI_Type_commit",
+    "MPI_File_open",          "MPI_File_close", "MPI_File_sync",
+    "MPI_File_set_size",           "MPI_File_set_view",          "MPI_File_read",
+    "MPI_File_read_at",      "MPI_File_read_at_all",   "MPI_File_read_all",
+    "MPI_File_read_shared",               "MPI_File_read_ordered",                "MPI_File_read_at_all_begin",
+    "MPI_File_read_all_begin",                   "MPI_File_read_ordered_begin",           "MPI_File_iread_at",
+    "MPI_File_iread",      "MPI_File_iread_shared",  "MPI_File_write",
+    "MPI_File_write_at",                 "MPI_File_write_at_all",               "MPI_File_write_all",
+    "MPI_File_write_shared",                 "MPI_File_write_ordered",             "MPI_File_write_at_all_begin",
+    "MPI_File_write_all_begin",               "MPI_File_write_ordered_begin",          "MPI_File_iwrite_at",
+    "MPI_File_iwrite",                  "MPI_File_iwrite_shared",           "MPI_Finalized",
+    "MPI_Cart_rank",                    "MPI_Cart_create",         "MPI_Cart_get",
+    "MPI_Cart_shift",             "MPI_Wait",           "MPI_Send",
+    "MPI_Recv",               "MPI_Sendrecv",             "MPI_Isend",
+    "MPI_Irecv",
+    "MPI_Waitall",               "MPI_Waitsome",         "MPI_Waitany",
+    "MPI_Ssend",              "MPI_Comm_split",                "MPI_Comm_create",
+    "MPI_Comm_dup",                    "MPI_File_seek",            "MPI_File_seek_shared",
+    "MPI_File_get_size",
+    "MPI_Test",             "MPI_Testall",            "MPI_Testsome",
+    "MPI_Testany",                 "MPI_Ireduce",            "MPI_Igather",
+    "MPI_Iscatter",
+    // Added 2020/08/17
+    "MPI_Ialltoall",              "MPI_Comm_free",            "MPI_Cart_sub",
+    // Added 2020/08/27
+    "MPI_Comm_split_type",               "PMPI_Init",
+    // Added 2020/11/05, 2020/11/13
+    "MPI_Init",           "MPI_Init_thread",
+    // Added 2020/12/18
+    "PMPI_Finalize",                    "MPI_Finalize",            
+#endif /* RECORDER_GOTCHA */
     // HDF5 I/O - 74 functions
     "H5Fcreate",            "H5Fopen",              "H5Fclose",     "H5Fflush", // File interface
     "H5Gclose",             "H5Gcreate1",           "H5Gcreate2",   // Group interface
