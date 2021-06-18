@@ -154,7 +154,7 @@ RECORDER_WRAPPEE_HANDLE_DECL(MPI_Finalized);
 // We are not going to use gotcha to wrap MPI_Init because the entry of gotcha is in MPI_Init
 // RECORDER_WRAPPEE_HANDLE_DECL(MPI_Init); 
 // MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
-RECORDER_WRAPPEE_HANDLE_DECL(MPI_Init_thread);  
+// RECORDER_WRAPPEE_HANDLE_DECL(MPI_Init_thread);  
 // Added 10 new MPI functinos on 2019/01/07
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Cart_rank);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Cart_create);
@@ -195,6 +195,7 @@ RECORDER_WRAPPEE_HANDLE_DECL(MPI_Cart_sub);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Comm_split_type);
 /* PMPI_Init PMPI_Finalize are wrapped separately*/
 RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Init);
+RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Init_thread);
 RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Finalize);
 
 

@@ -140,7 +140,7 @@ struct gotcha_binding_t recorder_wrappers[] = {
     // MPI_Init wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
     // We are not going to use gotcha to wrap MPI_Init because the entry of gotcha is in MPI_Init
     // { "MPI_Init", RECORDER_MPI_DECL(MPI_Init), &RECORDER_WRAPPEE_HANDLE(MPI_Init) },
-    { "MPI_Init_thread", RECORDER_MPI_DECL(MPI_Init_thread), &RECORDER_WRAPPEE_HANDLE(MPI_Init_thread) },
+    // { "MPI_Init_thread", RECORDER_MPI_DECL(MPI_Init_thread), &RECORDER_WRAPPEE_HANDLE(MPI_Init_thread) },
     { "MPI_Cart_rank", RECORDER_MPI_DECL(MPI_Cart_rank), &RECORDER_WRAPPEE_HANDLE(MPI_Cart_rank) },
     { "MPI_Cart_create", RECORDER_MPI_DECL(MPI_Cart_create), &RECORDER_WRAPPEE_HANDLE(MPI_Cart_create) },
     { "MPI_Cart_get", RECORDER_MPI_DECL(MPI_Cart_get), &RECORDER_WRAPPEE_HANDLE(MPI_Cart_get) },

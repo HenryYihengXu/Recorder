@@ -139,9 +139,10 @@ int MPI_Init(int *argc, char ***argv) {
     return ret;
 }
 
-int RECORDER_MPI_DECL(MPI_Init_thread)(int *argc, char ***argv, int required, int *provided) {
-    MAP_OR_FAIL(MPI_Init_thread)
-    int ret = RECORDER_REAL_CALL(MPI_Init_thread) (argc, argv, required, provided);
+int MPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
+    setup_gotcha_wrappers();
+    MAP_OR_FAIL(PMPI_Init_thread)
+    int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
     recorder_init(argc, argv);
     return ret;
 }

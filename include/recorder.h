@@ -465,7 +465,7 @@ RECORDER_FORWARD_DECL(MPI_Finalized, int, (int *flag));
 // We are not going to use gotcha to wrap MPI_Init because the entry of gotcha is in MPI_Init
 // RECORDER_FORWARD_DECL(MPI_Init, int, (int *argc, char ***argv)); 
 // MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
-RECORDER_FORWARD_DECL(MPI_Init_thread, int, (int *argc, char ***argv, int required, int *provided));
+// RECORDER_FORWARD_DECL(MPI_Init_thread, int, (int *argc, char ***argv, int required, int *provided));
 // Added 10 new MPI functinos on 2019/01/07
 RECORDER_FORWARD_DECL(MPI_Cart_rank, int, (MPI_Comm comm, CONST int coords[], int *rank));
 RECORDER_FORWARD_DECL(MPI_Cart_create, int, (MPI_Comm comm_old, int ndims, CONST int dims[], CONST int periods[], int reorder, MPI_Comm *comm_cart));
