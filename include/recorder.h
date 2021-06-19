@@ -506,6 +506,7 @@ RECORDER_FORWARD_DECL(MPI_Cart_sub, int, (MPI_Comm comm, const int remain_dims[]
 RECORDER_FORWARD_DECL(MPI_Comm_split_type, int, (MPI_Comm comm, int split_type, int key, MPI_Info info, MPI_Comm *newcomm));
 /* PMPI_Init PMPI_Finalize are wrapped separately*/
 RECORDER_FORWARD_DECL(PMPI_Init, int, (int *argc, char ***argv));
+RECORDER_FORWARD_DECL(PMPI_Init_thread, int, (int *argc, char ***argv, int required, int *provided));
 RECORDER_FORWARD_DECL(PMPI_Finalize, int, ());
 
 #endif /* RECORDER_GOTCHA */
