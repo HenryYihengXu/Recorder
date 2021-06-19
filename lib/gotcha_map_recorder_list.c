@@ -272,7 +272,8 @@ int setup_gotcha_wrappers(void)
             /* one or more functions were not found */
             void* fn;
             gotcha_wrappee_handle_t* hdlptr;
-            for (int i = 0; i < GOTCHA_NFUNCS; i++) {
+            int i;
+            for (i = 0; i < GOTCHA_NFUNCS; i++) {
                 hdlptr = recorder_wrappers[i].function_handle;
                 fn = gotcha_get_wrappee(*hdlptr);
                 if (NULL == fn) {
