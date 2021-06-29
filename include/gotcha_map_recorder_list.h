@@ -1,5 +1,6 @@
 #ifdef RECORDER_GOTCHA
-#include <gotcha/gotcha.h>
+#include "gotcha/gotcha_types.h"
+#include "gotcha/gotcha.h"
 
 /* define gotcha-specific state to use with our wrapper */
 #define RECORDER_WRAPPEE_HANDLE_DECL(func) \
