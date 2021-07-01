@@ -135,8 +135,8 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "MPI_File_iwrite_shared", RECORDER_MPI_DECL(MPI_File_iwrite_shared), &RECORDER_WRAPPEE_HANDLE(MPI_File_iwrite_shared) },
     { "MPI_Finalize", RECORDER_MPI_DECL(MPI_Finalize), &RECORDER_WRAPPEE_HANDLE(MPI_Finalize) },
     { "MPI_Finalized", RECORDER_MPI_DECL(MPI_Finalized), &RECORDER_WRAPPEE_HANDLE(MPI_Finalized) },
-    // MPI_Init wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
-    // We are not going to use gotcha to wrap MPI_Init because the entry of gotcha is in MPI_Init
+    // MPI_Init, MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+    // We are not going to use gotcha to wrap them because the entry of gotcha is in them
     // { "MPI_Init", RECORDER_MPI_DECL(MPI_Init), &RECORDER_WRAPPEE_HANDLE(MPI_Init) },
     // { "MPI_Init_thread", RECORDER_MPI_DECL(MPI_Init_thread), &RECORDER_WRAPPEE_HANDLE(MPI_Init_thread) },
     { "MPI_Cart_rank", RECORDER_MPI_DECL(MPI_Cart_rank), &RECORDER_WRAPPEE_HANDLE(MPI_Cart_rank) },
@@ -170,9 +170,12 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "MPI_Comm_free", RECORDER_MPI_DECL(MPI_Comm_free), &RECORDER_WRAPPEE_HANDLE(MPI_Comm_free) },
     { "MPI_Cart_sub", RECORDER_MPI_DECL(MPI_Cart_sub), &RECORDER_WRAPPEE_HANDLE(MPI_Cart_sub) },
     { "MPI_Comm_split_type", RECORDER_MPI_DECL(MPI_Comm_split_type), &RECORDER_WRAPPEE_HANDLE(MPI_Comm_split_type) },
-    /* PMPI_Init PMPI_Finalize are wrapped separately*/
-    { "PMPI_Init", RECORDER_MPI_DECL(PMPI_Init), &RECORDER_WRAPPEE_HANDLE(PMPI_Init) },
-    { "PMPI_Finalize", RECORDER_MPI_DECL(PMPI_Finalize), &RECORDER_WRAPPEE_HANDLE(PMPI_Finalize) },
+    // PMPI_Init, PMPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+    // We will not create gotcha wrappers for them because they may be the entry of gotcha. However, we still
+    // create handles for them and use the real functions as wrappers, because we still need to call these real functions. 
+    // Also, before enter them gotcha is not initialized, so no issue.
+    { "PMPI_Init", PMPI_Init, &RECORDER_WRAPPEE_HANDLE(PMPI_Init) },
+    { "PMPI_Finalize", PMPI_Finalize, &RECORDER_WRAPPEE_HANDLE(PMPI_Finalize) },
 
     /* HDF5 Function Calls */
     /* NOTE: using HDF5 1.8 version */

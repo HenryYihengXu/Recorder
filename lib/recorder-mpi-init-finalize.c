@@ -95,6 +95,13 @@ int PMPI_Init(int *argc, char ***argv) {
     return ret;
 }
 
+int PMPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
+    MAP_OR_FAIL(PMPI_Init_thread)
+    int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
+    recorder_init(argc, argv);
+    return ret;
+}
+
 int MPI_Init(int *argc, char ***argv) {
     MAP_OR_FAIL(PMPI_Init)
     int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
@@ -123,15 +130,23 @@ int MPI_Finalize(void) {
 }
 
 #else
-int RECORDER_MPI_DECL(PMPI_Init)(int *argc, char ***argv) {
+int PMPI_Init(int *argc, char ***argv) {
+    setup_gotcha_wrappers();
     MAP_OR_FAIL(PMPI_Init)
     int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
     recorder_init(argc, argv);
     return ret;
 }
 
+int PMPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
+    setup_gotcha_wrappers();
+    MAP_OR_FAIL(PMPI_Init_thread)
+    int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
+    recorder_init(argc, argv);
+    return ret;
+}
+
 int MPI_Init(int *argc, char ***argv) {
-    printf("In MPI_Init wrapper\n");
     setup_gotcha_wrappers();
     MAP_OR_FAIL(PMPI_Init)
     int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
@@ -154,7 +169,6 @@ int RECORDER_MPI_DECL(PMPI_Finalize)(void) {
 }
 
 int RECORDER_MPI_DECL(MPI_Finalize)(void) {
-    printf("In MPI_Finalize wrapper\n");
     recorder_finalize();
     MAP_OR_FAIL(MPI_Finalize);
     int res = RECORDER_REAL_CALL(MPI_Finalize) ();

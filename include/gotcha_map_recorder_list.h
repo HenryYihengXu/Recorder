@@ -151,10 +151,9 @@ RECORDER_WRAPPEE_HANDLE_DECL(MPI_File_iwrite_shared);
 // MPI_Finalize wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Finalize);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Finalized);
-// MPI_Init wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
-// We are not going to use gotcha to wrap MPI_Init because the entry of gotcha is in MPI_Init
+// MPI_Init, MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+// We are not going to use gotcha to wrap MPI_Init, MPI_Init_thread because the entry of gotcha is in them
 // RECORDER_WRAPPEE_HANDLE_DECL(MPI_Init); 
-// MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
 // RECORDER_WRAPPEE_HANDLE_DECL(MPI_Init_thread);  
 // Added 10 new MPI functinos on 2019/01/07
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Cart_rank);
@@ -194,7 +193,10 @@ RECORDER_WRAPPEE_HANDLE_DECL(MPI_Ialltoall);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Comm_free);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Cart_sub);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Comm_split_type);
-/* PMPI_Init PMPI_Finalize are wrapped separately*/
+// PMPI_Init, PMPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+// We will not create gotcha wrappers for them because they may be the entry of gotcha. However, we still
+// create handles for them and use the real functions as wrappers, because we still need to call these real functions. 
+// Also, before enter them gotcha is not initialized, so no issue.
 RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Init);
 RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Init_thread);
 RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Finalize);
