@@ -194,9 +194,10 @@ RECORDER_WRAPPEE_HANDLE_DECL(MPI_Comm_free);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Cart_sub);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Comm_split_type);
 // PMPI_Init, PMPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
-// We will not create gotcha wrappers for them because they may be the entry of gotcha. However, we still
-// create handles for them and use the real functions as wrappers, because we still need to call these real functions. 
-// Also, before enter them gotcha is not initialized, so no issue.
+// We require applications not to explicitly call PMPI_Init or PMPI_Init_thread. Because we need to use it as the real
+// function for MPI_Init. So we still create wrappers and handles for them, otherwise there is no way to use gotcha_get_wrappee
+// to get the real PMPI_Init and PMPI_Init_thread. Another solution is not wrapping them at all. But I don't want to change
+// the original Recorder behaviors.
 RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Init);
 RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Init_thread);
 RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Finalize);
