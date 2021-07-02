@@ -181,7 +181,7 @@ int MPI_Finalize(void) {
     int MPI_Finalize(void) {
         recorder_finalize();
         MAP_OR_FAIL(PMPI_Finalize);
-        int res = RECORDER_REAL_CALL(MPI_Finalize) ();
+        int res = RECORDER_REAL_CALL(PMPI_Finalize) ();
         return res;
     }
 
