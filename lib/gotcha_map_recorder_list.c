@@ -264,10 +264,11 @@ struct gotcha_binding_t recorder_wrappers[] = {
 
 #define GOTCHA_NFUNCS (sizeof(recorder_wrappers) / sizeof(gotcha_binding_t))
 
-int setup_gotcha_wrappers(void)
+int setup_gotcha_wrappers(int priority)
 {
     /* insert our I/O wrappers using gotcha */
     enum gotcha_error_t result;
+    gotcha_set_priority("recorder", priority);
     result = gotcha_wrap(recorder_wrappers, GOTCHA_NFUNCS, "recorder");
     if (result != GOTCHA_SUCCESS) {
         fprintf(stderr, "gotcha_wrap() returned %d\n", (int) result);

@@ -294,5 +294,5 @@ RECORDER_WRAPPEE_HANDLE_DECL(H5Pget_coll_metadata_write);
 RECORDER_WRAPPEE_HANDLE_DECL(H5Pset_all_coll_metadata_ops);
 RECORDER_WRAPPEE_HANDLE_DECL(H5Pget_all_coll_metadata_ops);
 
-int setup_gotcha_wrappers(void);
+int setup_gotcha_wrappers(int priority);
 #endif /* RECORDER_GOTCHA */

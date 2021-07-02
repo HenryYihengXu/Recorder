@@ -55,6 +55,9 @@
 #include "gotcha_map_recorder_list.h"
 #endif
 
+#ifndef PRIORITY
+#define PRIORITY 1
+
 static double local_tstart, local_tend;
 static int rank, nprocs;
 
@@ -129,47 +132,88 @@ int MPI_Finalize(void) {
     return res;
 }
 
-#else
-int RECORDER_MPI_DECL(PMPI_Init)(int *argc, char ***argv) {
-    printf("In PMPI_Init wrapper\n");
-    setup_gotcha_wrappers();
-    MAP_OR_FAIL(PMPI_Init)
-    int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
-    recorder_init(argc, argv);
-    return ret;
-}
+#else /* RECORDER_GOTCHA */
+    #ifndef WITH_INIT_FINI
+    /* I have to wrap PMPI_Init and PMPI_Init_thread, though they can also be the entrance of Recorder.
+       So applications are required to only use MPI_Init and MPI_Init_thread. Otherwise if users diable
+       mpi tracing, there is no way for Recorder to start.
+    */
+    int RECORDER_MPI_DECL(PMPI_Init)(int *argc, char ***argv) {
+        printf("In PMPI_Init wrapper\n");
+        setup_gotcha_wrappers(PRIORITY);
+        MAP_OR_FAIL(PMPI_Init)
+        int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
+        recorder_init(argc, argv);
+        return ret;
+    }
 
-int RECORDER_MPI_DECL(PMPI_Init_thread)(int *argc, char ***argv, int required, int *provided) {
-    setup_gotcha_wrappers();
-    MAP_OR_FAIL(PMPI_Init_thread)
-    int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
-    recorder_init(argc, argv);
-    return ret;
-}
+    int RECORDER_MPI_DECL(PMPI_Init_thread)(int *argc, char ***argv, int required, int *provided) {
+        setup_gotcha_wrappers(PRIORITY);
+        MAP_OR_FAIL(PMPI_Init_thread)
+        int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
+        recorder_init(argc, argv);
+        return ret;
+    }
 
-int MPI_Init(int *argc, char ***argv) {
-    setup_gotcha_wrappers();
-    MAP_OR_FAIL(PMPI_Init)
-    int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
-    recorder_init(argc, argv);
-    return ret;
-}
+    int MPI_Init(int *argc, char ***argv) {
+        setup_gotcha_wrappers(PRIORITY);
+        MAP_OR_FAIL(PMPI_Init)
+        int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
+        recorder_init(argc, argv);
+        return ret;
+    }
 
-int MPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
-    setup_gotcha_wrappers();
-    MAP_OR_FAIL(PMPI_Init_thread)
-    int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
-    recorder_init(argc, argv);
-    return ret;
-}
+    int MPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
+        setup_gotcha_wrappers(PRIORITY);
+        MAP_OR_FAIL(PMPI_Init_thread)
+        int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
+        recorder_init(argc, argv);
+        return ret;
+    }
 
-int RECORDER_MPI_DECL(PMPI_Finalize)(void) {
+    #else /* WITH_INIT_FINI */
+    int RECORDER_MPI_DECL(PMPI_Init)(int *argc, char ***argv) {
+        MAP_OR_FAIL(PMPI_Init)
+        int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
+        recorder_init(argc, argv);
+        return ret;
+    }
+
+    int RECORDER_MPI_DECL(PMPI_Init_thread)(int *argc, char ***argv, int required, int *provided) {
+        MAP_OR_FAIL(PMPI_Init_thread)
+        int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
+        recorder_init(argc, argv);
+        return ret;
+    }
+
+    int RECORDER_MPI_DECL(MPI_Init)(int *argc, char ***argv) {
+        MAP_OR_FAIL(PMPI_Init)
+        int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
+        recorder_init(argc, argv);
+        return ret;
+    }
+
+    int RECORDER_MPI_DECL(MPI_Init_thread)(int *argc, char ***argv, int required, int *provided) {
+        MAP_OR_FAIL(PMPI_Init_thread)
+        int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
+        recorder_init(argc, argv);
+        return ret;
+    }
+    
+    static void ld_preload_init(void) __attribute__((constructor));
+    static void ld_preload_init(void)
+    {
+        setup_gotcha_wrappers(PRIORITY);
+    }
+    #endif /* WITH_INIT_FINI */
+
+int PMPI_Finalize(void) {
     recorder_finalize();
     MAP_OR_FAIL(PMPI_Finalize);
     return RECORDER_REAL_CALL(PMPI_Finalize) ();
 }
 
-int RECORDER_MPI_DECL(MPI_Finalize)(void) {
+int MPI_Finalize(void) {
     recorder_finalize();
     MAP_OR_FAIL(MPI_Finalize);
     int res = RECORDER_REAL_CALL(MPI_Finalize) ();
