@@ -133,7 +133,7 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "MPI_File_iwrite_at", RECORDER_MPI_DECL(MPI_File_iwrite_at), &RECORDER_WRAPPEE_HANDLE(MPI_File_iwrite_at) },
     { "MPI_File_iwrite", RECORDER_MPI_DECL(MPI_File_iwrite), &RECORDER_WRAPPEE_HANDLE(MPI_File_iwrite) },
     { "MPI_File_iwrite_shared", RECORDER_MPI_DECL(MPI_File_iwrite_shared), &RECORDER_WRAPPEE_HANDLE(MPI_File_iwrite_shared) },
-    { "MPI_Finalize", RECORDER_MPI_DECL(MPI_Finalize), &RECORDER_WRAPPEE_HANDLE(MPI_Finalize) },
+    // { "MPI_Finalize", RECORDER_MPI_DECL(MPI_Finalize), &RECORDER_WRAPPEE_HANDLE(MPI_Finalize) },
     { "MPI_Finalized", RECORDER_MPI_DECL(MPI_Finalized), &RECORDER_WRAPPEE_HANDLE(MPI_Finalized) },
     // MPI_Init, MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
     // We are not going to use gotcha to wrap them because the entry of gotcha is in them
@@ -177,6 +177,7 @@ struct gotcha_binding_t recorder_wrappers[] = {
     // to get the real PMPI_Init and PMPI_Init_thread. Another solution is not wrapping them at all. But I don't want to change
     // the original Recorder behaviors.
     { "PMPI_Init", RECORDER_MPI_DECL(PMPI_Init), &RECORDER_WRAPPEE_HANDLE(PMPI_Init) },
+    { "PMPI_Init_thread", RECORDER_MPI_DECL(PMPI_Init_thread), &RECORDER_WRAPPEE_HANDLE(PMPI_Init_thread) },
     { "PMPI_Finalize", RECORDER_MPI_DECL(PMPI_Finalize), &RECORDER_WRAPPEE_HANDLE(PMPI_Finalize) },
 
     /* HDF5 Function Calls */

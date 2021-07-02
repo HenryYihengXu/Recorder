@@ -143,6 +143,6 @@ int RECORDER_MPI_DECL(PMPI_Init_thread) (int *argc, char ***argv, int required, 
 // int RECORDER_MPI_DECL(MPI_Init) (int *argc, char ***argv);
 // int RECORDER_MPI_DECL(MPI_Init_thread) (int *argc, char ***argv, int required, int *provided);
 int RECORDER_MPI_DECL(PMPI_Finalize) (void);
-int RECORDER_MPI_DECL(MPI_Finalize) (void);
+// int RECORDER_MPI_DECL(MPI_Finalize) (void);
 
 #endif /* RECORDER_GOTCHA */

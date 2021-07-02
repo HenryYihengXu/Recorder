@@ -203,7 +203,7 @@ static const char* func_list[] = {
     // Added 2020/08/17
     "MPI_Ialltoall",              "MPI_Comm_free",            "MPI_Cart_sub",
     // Added 2020/08/27
-    "MPI_Comm_split_type",               "PMPI_Init",
+    "MPI_Comm_split_type",               "PMPI_Init", "PMPI_Init_thread",
     // Added 2020/11/05, 2020/11/13
     "MPI_Init",           "MPI_Init_thread",
     // Added 2020/12/18

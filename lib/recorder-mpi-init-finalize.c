@@ -57,6 +57,7 @@
 
 #ifndef PRIORITY
 #define PRIORITY 1
+#endif
 
 static double local_tstart, local_tend;
 static int rank, nprocs;
@@ -171,6 +172,19 @@ int MPI_Finalize(void) {
         return ret;
     }
 
+    int RECORDER_MPI_DECL(PMPI_Finalize)(void) {
+        recorder_finalize();
+        MAP_OR_FAIL(PMPI_Finalize);
+        return RECORDER_REAL_CALL(PMPI_Finalize) ();
+    }
+
+    int MPI_Finalize(void) {
+        recorder_finalize();
+        MAP_OR_FAIL(PMPI_Finalize);
+        int res = RECORDER_REAL_CALL(MPI_Finalize) ();
+        return res;
+    }
+
     #else /* WITH_INIT_FINI */
     int RECORDER_MPI_DECL(PMPI_Init)(int *argc, char ***argv) {
         MAP_OR_FAIL(PMPI_Init)
@@ -206,17 +220,4 @@ int MPI_Finalize(void) {
         setup_gotcha_wrappers(PRIORITY);
     }
     #endif /* WITH_INIT_FINI */
-
-int PMPI_Finalize(void) {
-    recorder_finalize();
-    MAP_OR_FAIL(PMPI_Finalize);
-    return RECORDER_REAL_CALL(PMPI_Finalize) ();
-}
-
-int MPI_Finalize(void) {
-    recorder_finalize();
-    MAP_OR_FAIL(MPI_Finalize);
-    int res = RECORDER_REAL_CALL(MPI_Finalize) ();
-    return res;
-}
 #endif /* RECORDER_GOTCHA */
