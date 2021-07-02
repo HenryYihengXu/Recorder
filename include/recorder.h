@@ -152,19 +152,19 @@ void write_record(Record *record);
     #endif
 #elif RECORDER_GOTCHA
     #ifndef DISABLE_MPIO_TRACE
-        #define RECORDER_MPI_DECL(func) __wrap_##func
+        #define RECORDER_MPI_DECL(func) __gotcha_wrap_##func
     #else
         #define RECORDER_MPI_DECL(func) __ignore_##func
     #endif
 
     #ifndef DISABLE_POSIX_TRACE
-        #define RECORDER_POSIX_DECL(func) __wrap_##func
+        #define RECORDER_POSIX_DECL(func) __gotcha_wrap_##func
     #else
         #define RECORDER_POSIX_DECL(func) __ignore_##func
     #endif
 
     #ifndef DISABLE_HDF5_TRACE
-        #define RECORDER_HDF5_DECL(func) __wrap_##func
+        #define RECORDER_HDF5_DECL(func) __gotcha_wrap_##func
     #else
         #define RECORDER_HDF5_DECL(func) __ignore_##func
     #endif
