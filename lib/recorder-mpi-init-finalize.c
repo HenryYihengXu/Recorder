@@ -61,6 +61,7 @@
 
 static double local_tstart, local_tend;
 static int rank, nprocs;
+static bool initialized = false;
 
 void recorder_init(int *argc, char ***argv) {
 #ifndef RECORDER_GOTCHA
@@ -236,7 +237,9 @@ int MPI_Finalize(void) {
     static void ld_preload_init(void) __attribute__((constructor));
     static void ld_preload_init(void)
     {
-        setup_gotcha_wrappers(PRIORITY);
+        if (!initialized) {
+            setup_gotcha_wrappers(PRIORITY);
+        }
     }
     #endif /* WITH_INIT_FINI */
 #endif /* RECORDER_GOTCHA */
