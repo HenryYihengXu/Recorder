@@ -61,7 +61,6 @@
 
 static double local_tstart, local_tend;
 static int rank, nprocs;
-static bool initialized = false;
 
 void recorder_init(int *argc, char ***argv) {
 #ifndef RECORDER_GOTCHA
@@ -196,28 +195,24 @@ int MPI_Finalize(void) {
     int __gotcha_wrap_PMPI_Init(int *argc, char ***argv) {
         MAP_OR_FAIL(PMPI_Init)
         int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
-        recorder_init(argc, argv);
         return ret;
     }
 
     int __gotcha_wrap_PMPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
         MAP_OR_FAIL(PMPI_Init_thread)
         int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
-        recorder_init(argc, argv);
         return ret;
     }
 
     int __gotcha_wrap_MPI_Init(int *argc, char ***argv) {
         MAP_OR_FAIL(PMPI_Init)
         int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
-        recorder_init(argc, argv);
         return ret;
     }
 
     int __gotcha_wrap_MPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
         MAP_OR_FAIL(PMPI_Init_thread)
         int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
-        recorder_init(argc, argv);
         return ret;
     }
 
@@ -235,11 +230,16 @@ int MPI_Finalize(void) {
     }
     
     static void ld_preload_init(void) __attribute__((constructor));
+    static void ld_preload_finalize(void) __attribute__((destructor));
     static void ld_preload_init(void)
     {
-        if (!initialized) {
-            setup_gotcha_wrappers(PRIORITY);
-        }
+        setup_gotcha_wrappers(PRIORITY);
+        recorder_init(argc, argv);
+    }
+
+    static void ld_preload_finalize(void)
+    {
+        recorder_finalize();
     }
     #endif /* WITH_INIT_FINI */
 #endif /* RECORDER_GOTCHA */
