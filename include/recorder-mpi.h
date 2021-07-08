@@ -140,6 +140,10 @@ int RECORDER_MPI_DECL(MPI_Comm_split_type) (MPI_Comm comm, int split_type, int k
 // wrappers not defined in recorder-mpi.c but in recorder-mpi-init-finalize.c
 int RECORDER_MPI_DECL(PMPI_Init) (int *argc, char ***argv);
 int RECORDER_MPI_DECL(PMPI_Init_thread) (int *argc, char ***argv, int required, int *provided);
+#ifdef WITH_INIT_FINI
+int RECORDER_MPI_DECL(MPI_Init) (int *argc, char ***argv);
+int RECORDER_MPI_DECL(MPI_Init_thread) (int *argc, char ***argv, int required, int *provided);
+#endif
 // int RECORDER_MPI_DECL(MPI_Init) (int *argc, char ***argv);
 // int RECORDER_MPI_DECL(MPI_Init_thread) (int *argc, char ***argv, int required, int *provided);
 int RECORDER_MPI_DECL(PMPI_Finalize) (void);
