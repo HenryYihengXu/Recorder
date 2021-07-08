@@ -195,12 +195,14 @@ int MPI_Finalize(void) {
     int __gotcha_wrap_PMPI_Init(int *argc, char ***argv) {
         MAP_OR_FAIL(PMPI_Init)
         int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
+        recorder_init(argc, argv);
         return ret;
     }
 
     int __gotcha_wrap_PMPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
         MAP_OR_FAIL(PMPI_Init_thread)
         int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
+        recorder_init(argc, argv);
         return ret;
     }
 
@@ -208,12 +210,14 @@ int MPI_Finalize(void) {
         fprintf(stderr, "\n\nRecorder MPI_Init wrapper is called\n\n");
         MAP_OR_FAIL(MPI_Init)
         int ret = RECORDER_REAL_CALL(MPI_Init) (argc, argv);
+        recorder_init(argc, argv);
         return ret;
     }
 
     int __gotcha_wrap_MPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
         MAP_OR_FAIL(MPI_Init_thread)
         int ret = RECORDER_REAL_CALL(MPI_Init_thread) (argc, argv, required, provided);
+        recorder_init(argc, argv);
         return ret;
     }
 
@@ -236,7 +240,6 @@ int MPI_Finalize(void) {
     static void ld_preload_init(void)
     {
         setup_gotcha_wrappers(PRIORITY);
-        recorder_init(argc, argv);
     }
 
     // static void ld_preload_finalize(void)
