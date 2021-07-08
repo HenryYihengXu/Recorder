@@ -459,12 +459,15 @@ RECORDER_FORWARD_DECL(MPI_File_iwrite_at, int, (MPI_File fh, MPI_Offset offset, 
 RECORDER_FORWARD_DECL(MPI_File_iwrite, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
 RECORDER_FORWARD_DECL(MPI_File_iwrite_shared, int, (MPI_File fh, CONST void *buf, int count, MPI_Datatype datatype, __D_MPI_REQUEST *request));
 // MPI_Finalize wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
-// RECORDER_FORWARD_DECL(MPI_Finalize, int, ()); 
+RECORDER_FORWARD_DECL(MPI_Finalize, int, ()); 
 RECORDER_FORWARD_DECL(MPI_Finalized, int, (int *flag));
-// MPI_Init wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
+#ifdef WITH_INIT_FINI
+RECORDER_FORWARD_DECL(MPI_Init, int, (int *argc, char ***argv)); 
+RECORDER_FORWARD_DECL(MPI_Init_thread, int, (int *argc, char ***argv, int required, int *provided));
+#endif
+// MPI_Init, MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
 // We are not going to use gotcha to wrap MPI_Init because the entry of gotcha is in MPI_Init
 // RECORDER_FORWARD_DECL(MPI_Init, int, (int *argc, char ***argv)); 
-// MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
 // RECORDER_FORWARD_DECL(MPI_Init_thread, int, (int *argc, char ***argv, int required, int *provided));
 // Added 10 new MPI functinos on 2019/01/07
 RECORDER_FORWARD_DECL(MPI_Cart_rank, int, (MPI_Comm comm, CONST int coords[], int *rank));

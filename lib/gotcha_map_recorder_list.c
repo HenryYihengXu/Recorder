@@ -135,6 +135,10 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "MPI_File_iwrite_shared", RECORDER_MPI_DECL(MPI_File_iwrite_shared), &RECORDER_WRAPPEE_HANDLE(MPI_File_iwrite_shared) },
     { "MPI_Finalize", RECORDER_MPI_DECL(MPI_Finalize), &RECORDER_WRAPPEE_HANDLE(MPI_Finalize) },
     { "MPI_Finalized", RECORDER_MPI_DECL(MPI_Finalized), &RECORDER_WRAPPEE_HANDLE(MPI_Finalized) },
+    #ifdef WITH_INIT_FINI
+    { "MPI_Init", RECORDER_MPI_DECL(MPI_Init), &RECORDER_WRAPPEE_HANDLE(MPI_Init) },
+    { "MPI_Init_thread", RECORDER_MPI_DECL(MPI_Init_thread), &RECORDER_WRAPPEE_HANDLE(MPI_Init_thread) },
+    #endif
     // MPI_Init, MPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
     // We are not going to use gotcha to wrap them because the entry of gotcha is in them
     // { "MPI_Init", RECORDER_MPI_DECL(MPI_Init), &RECORDER_WRAPPEE_HANDLE(MPI_Init) },
