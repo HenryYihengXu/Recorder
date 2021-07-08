@@ -186,8 +186,8 @@ int MPI_Finalize(void) {
 
     int __gotcha_wrap_MPI_Finalize(void) {
         recorder_finalize();
-        MAP_OR_FAIL(PMPI_Finalize);
-        int res = RECORDER_REAL_CALL(PMPI_Finalize) ();
+        MAP_OR_FAIL(MPI_Finalize);
+        int res = RECORDER_REAL_CALL(MPI_Finalize) ();
         return res;
     }
 
@@ -205,14 +205,15 @@ int MPI_Finalize(void) {
     }
 
     int __gotcha_wrap_MPI_Init(int *argc, char ***argv) {
-        MAP_OR_FAIL(PMPI_Init)
-        int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
+        fprintf(stderr, "\n\nRecorder MPI_Init wrapper is called\n\n");
+        MAP_OR_FAIL(MPI_Init)
+        int ret = RECORDER_REAL_CALL(MPI_Init) (argc, argv);
         return ret;
     }
 
     int __gotcha_wrap_MPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
-        MAP_OR_FAIL(PMPI_Init_thread)
-        int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
+        MAP_OR_FAIL(MPI_Init_thread)
+        int ret = RECORDER_REAL_CALL(MPI_Init_thread) (argc, argv, required, provided);
         return ret;
     }
 
@@ -223,9 +224,10 @@ int MPI_Finalize(void) {
     }
 
     int __gotcha_wrap_MPI_Finalize(void) {
+        fprintf(stderr, "In MPI_Finalize Recorder Finalizing\n");
         recorder_finalize();
-        MAP_OR_FAIL(PMPI_Finalize);
-        int res = RECORDER_REAL_CALL(PMPI_Finalize) ();
+        MAP_OR_FAIL(MPI_Finalize);
+        int res = RECORDER_REAL_CALL(MPI_Finalize) ();
         return res;
     }
     
@@ -237,9 +239,10 @@ int MPI_Finalize(void) {
         recorder_init(argc, argv);
     }
 
-    static void ld_preload_finalize(void)
-    {
-        recorder_finalize();
-    }
+    // static void ld_preload_finalize(void)
+    // {
+    //     fprintf("In MPI_Finalize Recorder Finalizing\n");
+    //     recorder_finalize();
+    // }
     #endif /* WITH_INIT_FINI */
 #endif /* RECORDER_GOTCHA */
