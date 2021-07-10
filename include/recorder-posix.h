@@ -49,7 +49,7 @@ ssize_t RECORDER_POSIX_DECL(readv)(int fd, const struct iovec *iov, int iovcnt);
 ssize_t RECORDER_POSIX_DECL(writev)(int fd, const struct iovec *iov, int iovcnt);
 size_t RECORDER_POSIX_DECL(fread)(void *ptr, size_t size, size_t nmemb, FILE *stream);
 size_t RECORDER_POSIX_DECL(fwrite)(const void *ptr, size_t size, size_t nmemb, FILE *stream);
-int RECORDER_POSIX_DECL(fprintf)(FILE *stream, const char *format, ...);
+// int RECORDER_POSIX_DECL(fprintf)(FILE *stream, const char *format, ...);
 ssize_t RECORDER_POSIX_DECL(read)(int fd, void *buf, size_t count);
 ssize_t RECORDER_POSIX_DECL(write)(int fd, const void *buf, size_t count);
 int RECORDER_POSIX_DECL(fseek)(FILE *stream, long offset, int whence);

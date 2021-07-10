@@ -123,7 +123,7 @@ static const char* func_list[] = {
     "closedir",     "rewinddir",    "mknod",        "mknodat",  "fcntl",
     "dup",          "dup2",         "pipe",         "mkfifo",   "umask",
     "fdopen",       "fileno",       "access",       "faccessat","tmpfile",
-    "remove",       "truncate",     "ftruncate",    /* "vfprintf" */, "msync",
+    "remove",       "truncate",     "ftruncate",    /* "vfprintf", */ "msync",
     "fseeko",       "ftello",
 
 #ifndef RECORDER_GOTCHA
