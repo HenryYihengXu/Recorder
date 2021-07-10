@@ -34,8 +34,8 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "writev", RECORDER_POSIX_DECL(writev), &RECORDER_WRAPPEE_HANDLE(writev) },
     { "fread", RECORDER_POSIX_DECL(fread), &RECORDER_WRAPPEE_HANDLE(fread) },
     { "fwrite", RECORDER_POSIX_DECL(fwrite), &RECORDER_WRAPPEE_HANDLE(fwrite) },
-    { "fprintf", RECORDER_POSIX_DECL(fprintf), &RECORDER_WRAPPEE_HANDLE(fprintf) },
-    { "vfprintf", vfprintf, &RECORDER_WRAPPEE_HANDLE(vfprintf) },
+    //{ "fprintf", RECORDER_POSIX_DECL(fprintf), &RECORDER_WRAPPEE_HANDLE(fprintf) },
+    //{ "vfprintf", vfprintf, &RECORDER_WRAPPEE_HANDLE(vfprintf) },
     { "read", RECORDER_POSIX_DECL(read), &RECORDER_WRAPPEE_HANDLE(read) },
     { "write", RECORDER_POSIX_DECL(write), &RECORDER_WRAPPEE_HANDLE(write) },
     { "fseek", RECORDER_POSIX_DECL(fseek), &RECORDER_WRAPPEE_HANDLE(fseek) },
@@ -276,7 +276,7 @@ int setup_gotcha_wrappers(int priority)
     gotcha_set_priority("recorder", priority);
     result = gotcha_wrap(recorder_wrappers, GOTCHA_NFUNCS, "recorder");
     if (result != GOTCHA_SUCCESS) {
-        fprintf(stderr, "gotcha_wrap() returned %d\n", (int) result);
+        // fprintf(stderr, "gotcha_wrap() returned %d\n", (int) result);
         if (result == GOTCHA_FUNCTION_NOT_FOUND) {
             /* one or more functions were not found */
             void* fn;
@@ -286,8 +286,8 @@ int setup_gotcha_wrappers(int priority)
                 hdlptr = recorder_wrappers[i].function_handle;
                 fn = gotcha_get_wrappee(*hdlptr);
                 if (NULL == fn) {
-                    fprintf(stderr, "Gotcha failed to wrap function '%s'\n",
-                            recorder_wrappers[i].name);
+                    // fprintf(stderr, "Gotcha failed to wrap function '%s'\n",
+                        //    recorder_wrappers[i].name);
                 }
             }
         } else {

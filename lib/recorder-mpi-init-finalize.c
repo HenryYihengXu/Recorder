@@ -207,7 +207,7 @@ int MPI_Finalize(void) {
     }
 
     int __gotcha_wrap_MPI_Init(int *argc, char ***argv) {
-        fprintf(stderr, "\n\nRecorder MPI_Init wrapper is called\n\n");
+        // fprintf(stderr, "\n\nRecorder MPI_Init wrapper is called\n\n");
         MAP_OR_FAIL(MPI_Init)
         int ret = RECORDER_REAL_CALL(MPI_Init) (argc, argv);
         recorder_init(argc, argv);
@@ -239,12 +239,12 @@ int MPI_Finalize(void) {
     static void ld_preload_finalize(void) __attribute__((destructor));
     static void ld_preload_init(void)
     {
+        fprintf(stderr, "\n\nIn ld constructor setting up gotcha wrappers\n\n");
         setup_gotcha_wrappers(PRIORITY);
     }
 
     // static void ld_preload_finalize(void)
     // {
-    //     fprintf("In MPI_Finalize Recorder Finalizing\n");
     //     recorder_finalize();
     // }
     #endif /* WITH_INIT_FINI */
