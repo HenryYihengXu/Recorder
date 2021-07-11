@@ -269,14 +269,14 @@ struct gotcha_binding_t recorder_wrappers[] = {
 
 #define GOTCHA_NFUNCS (sizeof(recorder_wrappers) / sizeof(gotcha_binding_t))
 
-int setup_gotcha_wrappers(int priority)
+int setup_recorder_gotcha_wrappers(int priority)
 {
     /* insert our I/O wrappers using gotcha */
     enum gotcha_error_t result;
     gotcha_set_priority("recorder", priority);
     result = gotcha_wrap(recorder_wrappers, GOTCHA_NFUNCS, "recorder");
     if (result != GOTCHA_SUCCESS) {
-        // fprintf(stderr, "gotcha_wrap() returned %d\n", (int) result);
+        fprintf(stderr, "gotcha_wrap() returned %d\n", (int) result);
         if (result == GOTCHA_FUNCTION_NOT_FOUND) {
             /* one or more functions were not found */
             void* fn;
@@ -286,11 +286,12 @@ int setup_gotcha_wrappers(int priority)
                 hdlptr = recorder_wrappers[i].function_handle;
                 fn = gotcha_get_wrappee(*hdlptr);
                 if (NULL == fn) {
-                    // fprintf(stderr, "Gotcha failed to wrap function '%s'\n",
-                        //    recorder_wrappers[i].name);
+                    fprintf(stderr, "Gotcha failed to wrap function '%s'\n",
+                           recorder_wrappers[i].name);
                 }
             }
         } else {
+            fprintf(stderr, "\ngotcha_wrap() not success\n\n");
             return -1;
         }
     }
