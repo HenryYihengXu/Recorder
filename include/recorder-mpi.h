@@ -26,7 +26,7 @@
 #define CONST
 #endif
 
-#define RECORDER_MPI_DECL(func) __gotcha_wrap_##func
+#define RECORDER_MPI_DECL(func) __recorder_gotcha_wrap_##func
 
 /**
  * Intercept the following functions

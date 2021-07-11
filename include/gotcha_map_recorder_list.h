@@ -4,9 +4,9 @@
 
 /* define gotcha-specific state to use with our wrapper */
 #define RECORDER_WRAPPEE_HANDLE_DECL(func) \
-gotcha_wrappee_handle_t wrappee_handle_##func
+gotcha_wrappee_handle_t recorder_wrappee_handle_##func
 
-#define RECORDER_WRAPPEE_HANDLE(func) wrappee_handle_##func
+#define RECORDER_WRAPPEE_HANDLE(func) recorder_wrappee_handle_##func
 
 /* POSIX I/O */
 RECORDER_WRAPPEE_HANDLE_DECL(close);

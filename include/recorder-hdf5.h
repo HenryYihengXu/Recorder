@@ -7,7 +7,7 @@
 #include <limits.h>
 #include "mpi.h"
 #include "hdf5.h"
-#define RECORDER_HDF5_DECL(func) __gotcha_wrap_##func
+#define RECORDER_HDF5_DECL(func) __recorder_gotcha_wrap_##func
 
 hid_t RECORDER_HDF5_DECL(H5Fcreate)(const char *filename, unsigned flags, hid_t create_plist, hid_t access_plist);
 hid_t RECORDER_HDF5_DECL(H5Fopen)(const char *filename, unsigned flags, hid_t access_plist);

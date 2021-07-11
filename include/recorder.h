@@ -111,7 +111,7 @@ void write_record(Record *record);
     /* Point __real_func to the real funciton using dlsym() */
     #define MAP_OR_FAIL(func)                                                   \
         if (!(__real_##func)) {                                                 \
-            __real_ ## func = gotcha_get_wrappee(wrappee_handle_ ## func); \
+            __real_ ## func = gotcha_get_wrappee(recorder_wrappee_handle_ ## func); \
             if (!(__real_##func)) { \
                 assert(!"missing Gotcha wrappee for " #func); \
             }                                                                   \
@@ -152,19 +152,19 @@ void write_record(Record *record);
     #endif
 #elif RECORDER_GOTCHA
     #ifndef DISABLE_MPIO_TRACE
-        #define RECORDER_MPI_DECL(func) __gotcha_wrap_##func
+        #define RECORDER_MPI_DECL(func) __recorder_gotcha_wrap_##func
     #else
         #define RECORDER_MPI_DECL(func) __ignore_##func
     #endif
 
     #ifndef DISABLE_POSIX_TRACE
-        #define RECORDER_POSIX_DECL(func) __gotcha_wrap_##func
+        #define RECORDER_POSIX_DECL(func) __recorder_gotcha_wrap_##func
     #else
         #define RECORDER_POSIX_DECL(func) __ignore_##func
     #endif
 
     #ifndef DISABLE_HDF5_TRACE
-        #define RECORDER_HDF5_DECL(func) __gotcha_wrap_##func
+        #define RECORDER_HDF5_DECL(func) __recorder_gotcha_wrap_##func
     #else
         #define RECORDER_HDF5_DECL(func) __ignore_##func
     #endif

@@ -20,7 +20,7 @@
 typedef int64_t off64_t;
 #endif
 
-#define RECORDER_POSIX_DECL(func) __gotcha_wrap_##func
+#define RECORDER_POSIX_DECL(func) __recorder_gotcha_wrap_##func
 
 int RECORDER_POSIX_DECL(close)(int fd);
 int RECORDER_POSIX_DECL(fclose)(FILE *fp);

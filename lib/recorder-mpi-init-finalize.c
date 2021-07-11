@@ -145,7 +145,7 @@ int MPI_Finalize(void) {
     /* Here I'm not using the macro, because if users define DISABLE_MPI, I need to make sure these Recorder
        entries and exits won't be ignored
     */
-    int __gotcha_wrap_PMPI_Init(int *argc, char ***argv) {
+    int __recorder_gotcha_wrap_PMPI_Init(int *argc, char ***argv) {
         printf("In PMPI_Init wrapper\n");
         setup_recorder_gotcha_wrappers(PRIORITY);
         MAP_OR_FAIL(PMPI_Init)
@@ -154,7 +154,7 @@ int MPI_Finalize(void) {
         return ret;
     }
 
-    int __gotcha_wrap_PMPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
+    int __recorder_gotcha_wrap_PMPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
         setup_recorder_gotcha_wrappers(PRIORITY);
         MAP_OR_FAIL(PMPI_Init_thread)
         int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
@@ -178,13 +178,13 @@ int MPI_Finalize(void) {
         return ret;
     }
 
-    int __gotcha_wrap_PMPI_Finalize(void) {
+    int __recorder_gotcha_wrap_PMPI_Finalize(void) {
         recorder_finalize();
         MAP_OR_FAIL(PMPI_Finalize);
         return RECORDER_REAL_CALL(PMPI_Finalize) ();
     }
 
-    int __gotcha_wrap_MPI_Finalize(void) {
+    int __recorder_gotcha_wrap_MPI_Finalize(void) {
         recorder_finalize();
         MAP_OR_FAIL(MPI_Finalize);
         int res = RECORDER_REAL_CALL(MPI_Finalize) ();
@@ -192,21 +192,21 @@ int MPI_Finalize(void) {
     }
 
     #else /* WITH_INIT_FINI */
-    int __gotcha_wrap_PMPI_Init(int *argc, char ***argv) {
+    int __recorder_gotcha_wrap_PMPI_Init(int *argc, char ***argv) {
         MAP_OR_FAIL(PMPI_Init)
         int ret = RECORDER_REAL_CALL(PMPI_Init) (argc, argv);
         recorder_init(argc, argv);
         return ret;
     }
 
-    int __gotcha_wrap_PMPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
+    int __recorder_gotcha_wrap_PMPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
         MAP_OR_FAIL(PMPI_Init_thread)
         int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
         recorder_init(argc, argv);
         return ret;
     }
 
-    int __gotcha_wrap_MPI_Init(int *argc, char ***argv) {
+    int __recorder_gotcha_wrap_MPI_Init(int *argc, char ***argv) {
         // fprintf(stderr, "\n\nRecorder MPI_Init wrapper is called\n\n");
         MAP_OR_FAIL(MPI_Init)
         int ret = RECORDER_REAL_CALL(MPI_Init) (argc, argv);
@@ -214,20 +214,20 @@ int MPI_Finalize(void) {
         return ret;
     }
 
-    int __gotcha_wrap_MPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
+    int __recorder_gotcha_wrap_MPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
         MAP_OR_FAIL(MPI_Init_thread)
         int ret = RECORDER_REAL_CALL(MPI_Init_thread) (argc, argv, required, provided);
         recorder_init(argc, argv);
         return ret;
     }
 
-    int __gotcha_wrap_PMPI_Finalize(void) {
+    int __recorder_gotcha_wrap_PMPI_Finalize(void) {
         recorder_finalize();
         MAP_OR_FAIL(PMPI_Finalize);
         return RECORDER_REAL_CALL(PMPI_Finalize) ();
     }
 
-    int __gotcha_wrap_MPI_Finalize(void) {
+    int __recorder_gotcha_wrap_MPI_Finalize(void) {
         fprintf(stderr, "In MPI_Finalize Recorder Finalizing\n");
         recorder_finalize();
         MAP_OR_FAIL(MPI_Finalize);
