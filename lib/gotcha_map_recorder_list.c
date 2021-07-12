@@ -273,7 +273,11 @@ int setup_recorder_gotcha_wrappers(int priority)
 {
     /* insert our I/O wrappers using gotcha */
     enum gotcha_error_t result;
-    gotcha_set_priority("recorder", priority);
+    result = gotcha_set_priority("recorder", priority);
+    if (result != GOTCHA_SUCCESS) {
+      printf("gotcha_set_priority returned %d\n", (int) result);
+      return -1;
+    }
     result = gotcha_wrap(recorder_wrappers, GOTCHA_NFUNCS, "recorder");
     if (result != GOTCHA_SUCCESS) {
         fprintf(stderr, "gotcha_wrap() returned %d\n", (int) result);
