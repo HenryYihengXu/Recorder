@@ -239,7 +239,6 @@ int MPI_Finalize(void) {
     static void ld_preload_finalize(void) __attribute__((destructor));
     static void ld_preload_init(void)
     {
-        fprintf(stderr, "\n\nIn ld constructor setting up gotcha wrappers\n\n");
         setup_recorder_gotcha_wrappers(PRIORITY);
     }
 
