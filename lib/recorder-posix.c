@@ -161,6 +161,7 @@ int RECORDER_POSIX_DECL(open64)(const char *path, int flags, ...) {
 }
 
 int RECORDER_POSIX_DECL(open)(const char *path, int flags, ...) {
+    printf("In recorder open wrapper\n");
     if (flags & O_CREAT) {
         va_list arg;
         va_start(arg, flags);
@@ -287,6 +288,7 @@ size_t RECORDER_POSIX_DECL(fwrite)(const void *ptr, size_t size, size_t nmemb, F
     // int aligned_flag = 0;
     //if ((unsigned long)ptr % recorder_mem_alignment == 0)
     //    aligned_flag = 1;
+    printf("In recorder fwrite wrapper\n");
     RECORDER_INTERCEPTOR_NOIO(size_t, fwrite, (ptr, size, nmemb, stream));
     char** args = assemble_args_list(4, ptoa(ptr), itoa(size), itoa(nmemb), stream2fdstr(stream));
     RECORDER_INTERCEPTOR(4, args);
