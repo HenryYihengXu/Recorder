@@ -198,13 +198,12 @@ RECORDER_WRAPPEE_HANDLE_DECL(MPI_Comm_free);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Cart_sub);
 RECORDER_WRAPPEE_HANDLE_DECL(MPI_Comm_split_type);
 // PMPI_Init, PMPI_Init_thread wrapper defined in recorder-mpi-init-finalize.c, not in recorder-mpi.c
-// We require applications not to explicitly call PMPI_Init or PMPI_Init_thread. Because we need to use it as the real
-// function for MPI_Init. So we still create wrappers and handles for them, otherwise there is no way to use gotcha_get_wrappee
-// to get the real PMPI_Init and PMPI_Init_thread. Another solution is not wrapping them at all. But I don't want to change
-// the original Recorder behaviors.
-RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Init);
-RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Init_thread);
-RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Finalize);
+// We require applications not to explicitly use PMPI_Init or PMPI_Init_thread to intialize the MPI environment. 
+// We do not wrap them because real MPI functions will call them and we don't want to intercept it twice.
+// Also the MPI wrappers will simply call real MPI functions in order to chain tools together.
+// RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Init);
+// RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Init_thread);
+// RECORDER_WRAPPEE_HANDLE_DECL(PMPI_Finalize);
 
 
 /* NOTE: using HDF5 1.8 version */

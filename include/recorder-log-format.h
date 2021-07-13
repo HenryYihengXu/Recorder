@@ -203,11 +203,11 @@ static const char* func_list[] = {
     // Added 2020/08/17
     "MPI_Ialltoall",              "MPI_Comm_free",            "MPI_Cart_sub",
     // Added 2020/08/27
-    "MPI_Comm_split_type",               "PMPI_Init", "PMPI_Init_thread",
+    "MPI_Comm_split_type",               /* "PMPI_Init", "PMPI_Init_thread", */
     // Added 2020/11/05, 2020/11/13
     "MPI_Init",           "MPI_Init_thread",
     // Added 2020/12/18
-    "PMPI_Finalize",                    "MPI_Finalize",            
+    /* "PMPI_Finalize", */                    "MPI_Finalize",            
 #endif /* RECORDER_GOTCHA */
     // HDF5 I/O - 74 functions
     "H5Fcreate",            "H5Fopen",              "H5Fclose",     "H5Fflush", // File interface
