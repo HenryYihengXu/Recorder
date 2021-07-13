@@ -185,7 +185,7 @@ int MPI_Finalize(void) {
                 printf("Recorder failed to map symbol: %s\n", "MPI_Init_thread"); 
             }
         }
-        int ret = RECORDER_REAL_CALL(PMPI_Init_thread) (argc, argv, required, provided);
+        int ret = RECORDER_REAL_CALL(MPI_Init_thread) (argc, argv, required, provided);
         recorder_init(argc, argv);
         return ret;
     }
