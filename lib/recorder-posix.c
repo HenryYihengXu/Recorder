@@ -278,6 +278,7 @@ ssize_t RECORDER_POSIX_DECL(writev)(int fd, const struct iovec *iov, int iovcnt)
 }
 
 size_t RECORDER_POSIX_DECL(fread)(void *ptr, size_t size, size_t nmemb, FILE *stream) {
+    printf("In recorder fread wrapper\n");
     RECORDER_INTERCEPTOR_NOIO(size_t, fread, (ptr, size, nmemb, stream));
     char** args = assemble_args_list(4, ptoa(ptr), itoa(size), itoa(nmemb), stream2fdstr(stream));
     RECORDER_INTERCEPTOR(4, args);

@@ -245,7 +245,7 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "H5Pset_dxpl_mpio", RECORDER_HDF5_DECL(H5Pset_dxpl_mpio), &RECORDER_WRAPPEE_HANDLE(H5Pset_dxpl_mpio) },
     { "H5Pset_fapl_core", RECORDER_HDF5_DECL(H5Pset_fapl_core), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_core) },
     { "H5Pset_fapl_mpio", RECORDER_HDF5_DECL(H5Pset_fapl_mpio), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_mpio) },
-    { "H5Pset_fapl_mpiposix", RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_mpiposix) },
+    // { "H5Pset_fapl_mpiposix", RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_mpiposix) },
     { "H5Pset_istore_k", RECORDER_HDF5_DECL(H5Pset_istore_k), &RECORDER_WRAPPEE_HANDLE(H5Pset_istore_k) },
     { "H5Pset_mdc_config", RECORDER_HDF5_DECL(H5Pset_mdc_config), &RECORDER_WRAPPEE_HANDLE(H5Pset_mdc_config) },
     { "H5Pset_meta_block_size", RECORDER_HDF5_DECL(H5Pset_meta_block_size), &RECORDER_WRAPPEE_HANDLE(H5Pset_meta_block_size) },
