@@ -242,9 +242,9 @@ int MPI_Finalize(void) {
         setup_recorder_gotcha_wrappers(PRIORITY);
     }
 
-    // static void ld_preload_finalize(void)
-    // {
-    //     recorder_finalize();
-    // }
+    static void ld_preload_finalize(void)
+    {
+        printf("Recorder ld_preload finalizing\n");
+    }
     #endif /* WITH_INIT_FINI */
 #endif /* RECORDER_GOTCHA */
