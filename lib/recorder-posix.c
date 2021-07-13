@@ -162,8 +162,9 @@ int RECORDER_POSIX_DECL(open64)(const char *path, int flags, ...) {
 
 int RECORDER_POSIX_DECL(open)(const char *path, int flags, ...) {
     if (__recording) {
-        printf("In recorder open wrapper\n");
+        printf("In recorder fread wrapper\n");
     }
+    if (flags & O_CREAT) {
         va_list arg;
         va_start(arg, flags);
         int mode = va_arg(arg, int);
