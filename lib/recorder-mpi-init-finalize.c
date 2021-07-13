@@ -219,7 +219,7 @@ int MPI_Finalize(void) {
     // }
 
     int __recorder_gotcha_wrap_MPI_Init(int *argc, char ***argv) {
-        // fprintf(stderr, "\n\nRecorder MPI_Init wrapper is called\n\n");
+        fprintf(stderr, "\n\nRecorder MPI_Init wrapper is called\n\n");
         MAP_OR_FAIL(MPI_Init)
         int ret = RECORDER_REAL_CALL(MPI_Init) (argc, argv);
         recorder_init(argc, argv);
