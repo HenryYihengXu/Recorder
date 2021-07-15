@@ -106,12 +106,12 @@ void write_record(Record *record);
      * Declare the function signatures for real functions
      * i.e. The real function point to fwrite would be defined as __real_fwrite
      */
-    #define RECORDER_FORWARD_DECL(name, ret, args) ret(*__real_##name) args
+    #define RECORDER_FORWARD_DECL(name, ret, args) ret(*__recorder_real_##name) args
     
     /* Point __real_func to the real funciton using dlsym() */
     #define MAP_OR_FAIL(func)                                                   \
-        __real_ ## func = gotcha_get_wrappee(recorder_wrappee_handle_ ## func); \
-        if (!(__real_##func)) { \
+        __recorder_real_ ## func = gotcha_get_wrappee(recorder_wrappee_handle_ ## func); \
+        if (!(__recorder_eal_##func)) { \
             assert(!"missing Gotcha wrappee for " #func); \
         }
         
@@ -120,7 +120,7 @@ void write_record(Record *record);
      * Before call the real function, we need to make sure its mapped by dlsym()
      * So, every time we use this marco directly, we need to call MAP_OR_FAIL before it
      */
-    #define RECORDER_REAL_CALL(func) __real_##func
+    #define RECORDER_REAL_CALL(func) __recorder_real_##func
 #else
     #define RECORDER_FORWARD_DECL(name, ret, args)
     #define MAP_OR_FAIL(func)

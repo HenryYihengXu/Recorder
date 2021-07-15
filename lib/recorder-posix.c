@@ -355,6 +355,10 @@ off_t RECORDER_POSIX_DECL(lseek)(int fd, off_t offset, int whence) {
 
 /* Below are non File-I/O related function calls */
 char* RECORDER_POSIX_DECL(getcwd)(char *buf, size_t size) {
+    if (__recording) {
+        printf("In recorder getcwd wrapper");
+        fflush(stdout);
+    }
     RECORDER_INTERCEPTOR_NOIO(char*, getcwd, (buf, size));
     char** args = assemble_args_list(2, ptoa(buf), itoa(size));
     RECORDER_INTERCEPTOR(2, args);
