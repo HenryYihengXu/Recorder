@@ -165,9 +165,9 @@ int MPI_Finalize(void) {
     int MPI_Init(int *argc, char ***argv) {
         setup_recorder_gotcha_wrappers(PRIORITY);
         // MAP_OR_FAIL(PMPI_Init)
-        if (!(__real_MPI_Init)) {
-            __real_MPI_Init = dlsym(RTLD_NEXT, "MPI_Init");
-            if (!(__real_MPI_Init)) { 
+        if (!(__recorder_real_MPI_Init)) {
+            __recorder_real_MPI_Init = dlsym(RTLD_NEXT, "MPI_Init");
+            if (!(__recorder_real_MPI_Init)) { 
                 printf("Recorder failed to map symbol: %s\n", "MPI_Init"); 
             }
         }
@@ -179,9 +179,9 @@ int MPI_Finalize(void) {
     int MPI_Init_thread(int *argc, char ***argv, int required, int *provided) {
         setup_recorder_gotcha_wrappers(PRIORITY);
         // MAP_OR_FAIL(PMPI_Init_thread)
-        if (!(__real_MPI_Init_thread)) {
-            __real_MPI_Init_thread = dlsym(RTLD_NEXT, "MPI_Init_thread");
-            if (!(__real_MPI_Init_thread)) { 
+        if (!(__recorder_real_MPI_Init_thread)) {
+            __recorder_real_MPI_Init_thread = dlsym(RTLD_NEXT, "MPI_Init_thread");
+            if (!(__recorder_real_MPI_Init_thread)) { 
                 printf("Recorder failed to map symbol: %s\n", "MPI_Init_thread"); 
             }
         }
