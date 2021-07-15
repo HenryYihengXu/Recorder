@@ -111,7 +111,7 @@ void write_record(Record *record);
     /* Point __real_func to the real funciton using dlsym() */
     #define MAP_OR_FAIL(func)                                                   \
         __recorder_real_ ## func = gotcha_get_wrappee(recorder_wrappee_handle_ ## func); \
-        if (!(__recorder_eal_##func)) { \
+        if (!(__recorder_real_##func)) { \
             assert(!"missing Gotcha wrappee for " #func); \
         }
         
