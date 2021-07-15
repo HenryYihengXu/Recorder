@@ -162,7 +162,8 @@ int RECORDER_POSIX_DECL(open64)(const char *path, int flags, ...) {
 
 int RECORDER_POSIX_DECL(open)(const char *path, int flags, ...) {
     if (__recording) {
-        fprintf(stderr, "In recorder fread wrapper\n");
+        printf("In recorder open wrapper\n");
+        fflush(stdout);
     }
     if (flags & O_CREAT) {
         va_list arg;

@@ -110,12 +110,11 @@ void write_record(Record *record);
     
     /* Point __real_func to the real funciton using dlsym() */
     #define MAP_OR_FAIL(func)                                                   \
-        if (!(__real_##func)) {                                                 \
-            __real_ ## func = gotcha_get_wrappee(recorder_wrappee_handle_ ## func); \
-            if (!(__real_##func)) { \
-                assert(!"missing Gotcha wrappee for " #func); \
-            }                                                                   \
+        __real_ ## func = gotcha_get_wrappee(recorder_wrappee_handle_ ## func); \
+        if (!(__real_##func)) { \
+            assert(!"missing Gotcha wrappee for " #func); \
         }
+        
     /*
      * Call the real funciton
      * Before call the real function, we need to make sure its mapped by dlsym()
