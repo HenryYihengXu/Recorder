@@ -302,19 +302,19 @@ size_t RECORDER_POSIX_DECL(fwrite)(const void *ptr, size_t size, size_t nmemb, F
     RECORDER_INTERCEPTOR(4, args);
 }
 
-// int RECORDER_POSIX_DECL(fprintf)(FILE *stream, const char *format, ...) {
-//     // Get the size of the string fprintf will write
-//     va_list fprintf_args;
-//     va_start(fprintf_args, format);
-//     int size = vsnprintf(NULL, 0, format, fprintf_args) + 1;
-//     va_end(fprintf_args);
+int RECORDER_POSIX_DECL(fprintf)(FILE *stream, const char *format, ...) {
+    // Get the size of the string fprintf will write
+    va_list fprintf_args;
+    va_start(fprintf_args, format);
+    int size = vsnprintf(NULL, 0, format, fprintf_args) + 1;
+    va_end(fprintf_args);
 
-//     va_start(fprintf_args, format);
-//     RECORDER_INTERCEPTOR_NOIO(size_t, vfprintf, (stream, format, fprintf_args));
-//     va_end(fprintf_args);
-//     char** args = assemble_args_list(2, stream2fdstr(stream), itoa(size));
-//     RECORDER_INTERCEPTOR(2, args);
-// }
+    va_start(fprintf_args, format);
+    RECORDER_INTERCEPTOR_NOIO(size_t, vfprintf, (stream, format, fprintf_args));
+    va_end(fprintf_args);
+    char** args = assemble_args_list(2, stream2fdstr(stream), itoa(size));
+    RECORDER_INTERCEPTOR(2, args);
+}
 
 ssize_t RECORDER_POSIX_DECL(read)(int fd, void *buf, size_t count) {
     RECORDER_INTERCEPTOR_NOIO(ssize_t, read, (fd, buf, count));

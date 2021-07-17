@@ -251,7 +251,7 @@ RECORDER_FORWARD_DECL(writev, ssize_t, (int fd, const struct iovec *iov, int iov
 RECORDER_FORWARD_DECL(fread, size_t, (void *ptr, size_t size, size_t nmemb, FILE *stream));
 RECORDER_FORWARD_DECL(fwrite, size_t, (const void *ptr, size_t size, size_t nmemb, FILE *stream));
 // we need to use vprintf to trace fprintf so we can pass va_list
-// RECORDER_FORWARD_DECL(vfprintf, int, (FILE *stream, const char *format, va_list ap));
+RECORDER_FORWARD_DECL(vfprintf, int, (FILE *stream, const char *format, va_list ap));
 RECORDER_FORWARD_DECL(read, ssize_t, (int fd, void *buf, size_t count));
 RECORDER_FORWARD_DECL(write, ssize_t, (int fd, const void *buf, size_t count));
 RECORDER_FORWARD_DECL(fseek, int, (FILE * stream, long offset, int whence));
