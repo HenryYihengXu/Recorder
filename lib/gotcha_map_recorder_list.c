@@ -244,7 +244,7 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "H5Pset_dxpl_mpio", RECORDER_HDF5_DECL(H5Pset_dxpl_mpio), &RECORDER_WRAPPEE_HANDLE(H5Pset_dxpl_mpio) },
     { "H5Pset_fapl_core", RECORDER_HDF5_DECL(H5Pset_fapl_core), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_core) },
     { "H5Pset_fapl_mpio", RECORDER_HDF5_DECL(H5Pset_fapl_mpio), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_mpio) },
-    // { "H5Pset_fapl_mpiposix", RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_mpiposix) },
+    { "H5Pset_fapl_mpiposix", RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_mpiposix) },
     { "H5Pset_istore_k", RECORDER_HDF5_DECL(H5Pset_istore_k), &RECORDER_WRAPPEE_HANDLE(H5Pset_istore_k) },
     { "H5Pset_mdc_config", RECORDER_HDF5_DECL(H5Pset_mdc_config), &RECORDER_WRAPPEE_HANDLE(H5Pset_mdc_config) },
     { "H5Pset_meta_block_size", RECORDER_HDF5_DECL(H5Pset_meta_block_size), &RECORDER_WRAPPEE_HANDLE(H5Pset_meta_block_size) },
@@ -275,7 +275,7 @@ int setup_recorder_gotcha_wrappers(int priority)
     enum gotcha_error_t result;
     result = gotcha_set_priority("recorder", priority);
     if (result != GOTCHA_SUCCESS) {
-      printf("gotcha_set_priority returned %d\n", (int) result);
+      printf("gotcha_recorder_set_priority returned %d\n", (int) result);
       return -1;
     }
     result = gotcha_wrap(recorder_wrappers, GOTCHA_NFUNCS, "recorder");

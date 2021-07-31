@@ -68,7 +68,7 @@ herr_t RECORDER_HDF5_DECL(H5Pset_chunk)(hid_t plist, int ndims, const hsize_t *d
 herr_t RECORDER_HDF5_DECL(H5Pset_dxpl_mpio)(hid_t dxpl_id, H5FD_mpio_xfer_t xfer_mode);
 herr_t RECORDER_HDF5_DECL(H5Pset_fapl_core)(hid_t fapl_id, size_t increment, hbool_t backing_store);
 herr_t RECORDER_HDF5_DECL(H5Pset_fapl_mpio)(hid_t fapl_id, MPI_Comm comm, MPI_Info info);
-// herr_t RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix)(hid_t fapl_id, MPI_Comm comm, hbool_t use_gpfs_hints);
+herr_t RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix)(hid_t fapl_id, MPI_Comm comm, hbool_t use_gpfs_hints);
 herr_t RECORDER_HDF5_DECL(H5Pset_istore_k)(hid_t plist, unsigned ik);
 herr_t RECORDER_HDF5_DECL(H5Pset_mdc_config)(hid_t plist_id, H5AC_cache_config_t *config_ptr);
 herr_t RECORDER_HDF5_DECL(H5Pset_meta_block_size)(hid_t fapl_id, hsize_t size);

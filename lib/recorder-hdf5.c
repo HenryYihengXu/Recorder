@@ -613,11 +613,11 @@ herr_t RECORDER_HDF5_DECL(H5Pset_fapl_mpio)(hid_t fapl_id, MPI_Comm comm, MPI_In
     RECORDER_INTERCEPTOR(3, args);
 }
 
-// herr_t RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix)(hid_t fapl_id, MPI_Comm comm, hbool_t use_gpfs_hints) {
-//     RECORDER_INTERCEPTOR_NOIO(herr_t, H5Pset_fapl_mpiposix, (fapl_id, comm, use_gpfs_hints));
-//     char **args = assemble_args_list(3, itoa(fapl_id), comm2name(comm), itoa(use_gpfs_hints));
-//     RECORDER_INTERCEPTOR(3, args);
-// }
+herr_t RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix)(hid_t fapl_id, MPI_Comm comm, hbool_t use_gpfs_hints) {
+    RECORDER_INTERCEPTOR_NOIO(herr_t, H5Pset_fapl_mpiposix, (fapl_id, comm, use_gpfs_hints));
+    char **args = assemble_args_list(3, itoa(fapl_id), comm2name(comm), itoa(use_gpfs_hints));
+    RECORDER_INTERCEPTOR(3, args);
+}
 
 herr_t RECORDER_HDF5_DECL(H5Pset_istore_k)(hid_t plist, unsigned ik) {
     RECORDER_INTERCEPTOR_NOIO(herr_t, H5Pset_istore_k, (plist, ik));
