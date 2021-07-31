@@ -602,5 +602,10 @@ RECORDER_FORWARD_DECL(H5Pget_coll_metadata_write, herr_t, (hid_t fapl_id, hbool_
 RECORDER_FORWARD_DECL(H5Pset_all_coll_metadata_ops, herr_t, (hid_t accpl_id, hbool_t is_collective));
 RECORDER_FORWARD_DECL(H5Pget_all_coll_metadata_ops, herr_t, (hid_t accpl_id, hbool_t* is_collective));
 
+RECORDER_FORWARD_DECL(foo, int, (const char *name, int arg1));
+RECORDER_FORWARD_DECL(ncmpi_create, int, (MPI_Comm comm, const char *path, int cmode, MPI_Info info, int *ncidp));
+RECORDER_FORWARD_DECL(ncmpi_open, int, (MPI_Comm comm, const char *path, int omode, MPI_Info info, int *ncidp));
+RECORDER_FORWARD_DECL(ncmpi_close, int, (int ncid));
+
 
 #endif /* __RECORDER_H */

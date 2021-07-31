@@ -91,4 +91,9 @@ herr_t RECORDER_HDF5_DECL(H5Pget_coll_metadata_write)(hid_t fapl_id, hbool_t* is
 herr_t RECORDER_HDF5_DECL(H5Pset_all_coll_metadata_ops)(hid_t fapl_id, hbool_t is_collective);
 herr_t RECORDER_HDF5_DECL(H5Pget_all_coll_metadata_ops)(hid_t fapl_id, hbool_t* is_collective);
 
+int RECORDER_HDF5_DECL(foo)(const char *name, int arg1);
+int RECORDER_HDF5_DECL(ncmpi_create)(MPI_Comm comm, const char *path, int cmode, MPI_Info info, int *ncidp);
+int RECORDER_HDF5_DECL(ncmpi_open)(MPI_Comm comm, const char *path, int omode, MPI_Info info, int *ncidp);
+int RECORDER_HDF5_DECL(ncmpi_close)(int ncid);
+
 #endif /* RECORDER_GOTCHA */

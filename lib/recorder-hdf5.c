@@ -745,3 +745,16 @@ herr_t RECORDER_HDF5_DECL(H5Pget_all_coll_metadata_ops)(hid_t fapl_id, hbool_t* 
     RECORDER_INTERCEPTOR(2, args);
 }
 
+
+int RECORDER_HDF5_DECL(foo)(const char *name, int arg1) {
+    return 0;
+}
+int RECORDER_HDF5_DECL(ncmpi_create)(MPI_Comm comm, const char *path, int cmode, MPI_Info info, int *ncidp) {
+    return 0;
+}
+int RECORDER_HDF5_DECL(ncmpi_open)(MPI_Comm comm, const char *path, int omode, MPI_Info info, int *ncidp) {
+    return 0;
+}
+int RECORDER_HDF5_DECL(ncmpi_close)(int ncid) {
+    return 0;
+}
