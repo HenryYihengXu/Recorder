@@ -613,11 +613,11 @@ herr_t RECORDER_HDF5_DECL(H5Pset_fapl_mpio)(hid_t fapl_id, MPI_Comm comm, MPI_In
     RECORDER_INTERCEPTOR(3, args);
 }
 
-herr_t RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix)(hid_t fapl_id, MPI_Comm comm, hbool_t use_gpfs_hints) {
-    RECORDER_INTERCEPTOR_NOIO(herr_t, H5Pset_fapl_mpiposix, (fapl_id, comm, use_gpfs_hints));
-    char **args = assemble_args_list(3, itoa(fapl_id), comm2name(comm), itoa(use_gpfs_hints));
-    RECORDER_INTERCEPTOR(3, args);
-}
+// herr_t RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix)(hid_t fapl_id, MPI_Comm comm, hbool_t use_gpfs_hints) {
+//     RECORDER_INTERCEPTOR_NOIO(herr_t, H5Pset_fapl_mpiposix, (fapl_id, comm, use_gpfs_hints));
+//     char **args = assemble_args_list(3, itoa(fapl_id), comm2name(comm), itoa(use_gpfs_hints));
+//     RECORDER_INTERCEPTOR(3, args);
+// }
 
 herr_t RECORDER_HDF5_DECL(H5Pset_istore_k)(hid_t plist, unsigned ik) {
     RECORDER_INTERCEPTOR_NOIO(herr_t, H5Pset_istore_k, (plist, ik));
@@ -746,15 +746,15 @@ herr_t RECORDER_HDF5_DECL(H5Pget_all_coll_metadata_ops)(hid_t fapl_id, hbool_t* 
 }
 
 
-int RECORDER_HDF5_DECL(foo)(const char *name, int arg1) {
-    return 0;
-}
-int RECORDER_HDF5_DECL(ncmpi_create)(MPI_Comm comm, const char *path, int cmode, MPI_Info info, int *ncidp) {
-    return 0;
-}
-int RECORDER_HDF5_DECL(ncmpi_open)(MPI_Comm comm, const char *path, int omode, MPI_Info info, int *ncidp) {
-    return 0;
-}
-int RECORDER_HDF5_DECL(ncmpi_close)(int ncid) {
-    return 0;
-}
+// int RECORDER_HDF5_DECL(foo)(const char *name, int arg1) {
+//     return 0;
+// }
+// int RECORDER_HDF5_DECL(ncmpi_create)(MPI_Comm comm, const char *path, int cmode, MPI_Info info, int *ncidp) {
+//     return 0;
+// }
+// int RECORDER_HDF5_DECL(ncmpi_open)(MPI_Comm comm, const char *path, int omode, MPI_Info info, int *ncidp) {
+//     return 0;
+// }
+// int RECORDER_HDF5_DECL(ncmpi_close)(int ncid) {
+//     return 0;
+// }

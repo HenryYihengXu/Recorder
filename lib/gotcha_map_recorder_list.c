@@ -244,7 +244,7 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "H5Pset_dxpl_mpio", RECORDER_HDF5_DECL(H5Pset_dxpl_mpio), &RECORDER_WRAPPEE_HANDLE(H5Pset_dxpl_mpio) },
     { "H5Pset_fapl_core", RECORDER_HDF5_DECL(H5Pset_fapl_core), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_core) },
     { "H5Pset_fapl_mpio", RECORDER_HDF5_DECL(H5Pset_fapl_mpio), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_mpio) },
-    { "H5Pset_fapl_mpiposix", RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_mpiposix) },
+    // { "H5Pset_fapl_mpiposix", RECORDER_HDF5_DECL(H5Pset_fapl_mpiposix), &RECORDER_WRAPPEE_HANDLE(H5Pset_fapl_mpiposix) },
     { "H5Pset_istore_k", RECORDER_HDF5_DECL(H5Pset_istore_k), &RECORDER_WRAPPEE_HANDLE(H5Pset_istore_k) },
     { "H5Pset_mdc_config", RECORDER_HDF5_DECL(H5Pset_mdc_config), &RECORDER_WRAPPEE_HANDLE(H5Pset_mdc_config) },
     { "H5Pset_meta_block_size", RECORDER_HDF5_DECL(H5Pset_meta_block_size), &RECORDER_WRAPPEE_HANDLE(H5Pset_meta_block_size) },
@@ -264,10 +264,10 @@ struct gotcha_binding_t recorder_wrappers[] = {
     { "H5Pset_all_coll_metadata_ops", RECORDER_HDF5_DECL(H5Pset_all_coll_metadata_ops), &RECORDER_WRAPPEE_HANDLE(H5Pset_all_coll_metadata_ops) },
     { "H5Pget_all_coll_metadata_ops", RECORDER_HDF5_DECL(H5Pget_all_coll_metadata_ops), &RECORDER_WRAPPEE_HANDLE(H5Pget_all_coll_metadata_ops) },
 
-    { "foo", RECORDER_HDF5_DECL(foo), &RECORDER_WRAPPEE_HANDLE(foo) },
-    { "ncmpi_create", RECORDER_HDF5_DECL(ncmpi_create), &RECORDER_WRAPPEE_HANDLE(ncmpi_create) },
-    { "ncmpi_open", RECORDER_HDF5_DECL(ncmpi_open), &RECORDER_WRAPPEE_HANDLE(ncmpi_open) },
-    { "ncmpi_close", RECORDER_HDF5_DECL(ncmpi_close), &RECORDER_WRAPPEE_HANDLE(ncmpi_close) },
+    // { "foo", RECORDER_HDF5_DECL(foo), &RECORDER_WRAPPEE_HANDLE(foo) },
+    // { "ncmpi_create", RECORDER_HDF5_DECL(ncmpi_create), &RECORDER_WRAPPEE_HANDLE(ncmpi_create) },
+    // { "ncmpi_open", RECORDER_HDF5_DECL(ncmpi_open), &RECORDER_WRAPPEE_HANDLE(ncmpi_open) },
+    // { "ncmpi_close", RECORDER_HDF5_DECL(ncmpi_close), &RECORDER_WRAPPEE_HANDLE(ncmpi_close) },
 };
 
 #define GOTCHA_NFUNCS (sizeof(recorder_wrappers) / sizeof(gotcha_binding_t))
