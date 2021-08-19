@@ -275,7 +275,7 @@ struct gotcha_binding_t recorder_wrappers[] = {
 int setup_recorder_gotcha_wrappers(int priority)
 {
     /* insert our I/O wrappers using gotcha */
-    fprintf(stderr, "recorder setup gotcha wrappers with priority = %d\n", priority);
+    // fprintf(stderr, "recorder setup gotcha wrappers with priority = %d\n", priority);
     enum gotcha_error_t result;
     result = gotcha_set_priority("recorder", priority);
     if (result != GOTCHA_SUCCESS) {
